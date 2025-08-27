@@ -29,10 +29,10 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-[360px] bg-cover bg-no-repeat bg-center bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1173&auto=format&fit=crop')]">
+    <div className="relative h-[300px] bg-cover bg-no-repeat bg-center bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1173&auto=format&fit=crop')]">
       <div className="absolute inset-0 pt-20 bg-blue-800/60 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-          Start Your Booking <br /> BookNoww
+        <h1 className="text-3xl md:text-4xl font-sans font-bold text-white mb-4">
+          Start Your Booking <br />
         </h1>
 
         <div className="absolute flex flex-col justify-between pb-6 -bottom-20 bg-white w-full md:w-[90%] lg:w-[90%] xl:w-[80%] max-w-6xl h-auto rounded-xl shadow-xl mx-2 p-4">
