@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "../ui/button";
+import LoginPopover from "./login";
 
 const Header = () => {
   return (
@@ -7,7 +8,7 @@ const Header = () => {
       <div className="  px-4 xl:px-0 xl:w-[1160px] mx-auto flex items-center justify-between">
         {" "}
         <p className=" text-[20px] font-semibold">BookNoww</p>
-        <Button>Login</Button>
+        <LoginPopover />
       </div>
     </div>
   );

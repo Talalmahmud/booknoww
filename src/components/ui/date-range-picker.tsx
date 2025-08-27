@@ -52,13 +52,15 @@ export function DateRangePicker({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
+        <PopoverContent className="w-full p-0" align="start">
           <Calendar
             mode="range"
             defaultMonth={value?.from}
             selected={value}
             onSelect={onChange}
             numberOfMonths={2}
+            pagedNavigation
+            className="rounded-md border-2"
           />
           <div className="flex justify-end border-t p-2">
             <Button
