@@ -44,7 +44,7 @@ export function LocationCombobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full md:w-1/3 h-14 justify-between rounded-lg border-gray-300"
+          className="w-full h-14 justify-between rounded-lg border-gray-300"
         >
           <div className="flex items-center gap-2 truncate">
             <MapPin className="h-4 w-4 text-gray-500" />
