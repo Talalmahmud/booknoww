@@ -7,6 +7,7 @@ import { DateRange } from "react-day-picker";
 import { DateRangePicker } from "../ui/date-range-picker";
 import { LocationCombobox } from "../ui/location-combobox";
 import { GuestSelector } from "./guest-selector";
+import Link from "next/link";
 
 const Hero = () => {
   const [activeItem, setActiveItem] = useState("Hotel");
@@ -83,12 +84,12 @@ const Hero = () => {
             </div>
 
             {/* Search button */}
-            <div className="lg:col-span-1 flex">
+            <Link href={"/search"} className="lg:col-span-1 flex">
               <Button className="w-full h-14 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold shadow">
                 <Search className="mr-2 h-4 w-4" />
                 Search
               </Button>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
