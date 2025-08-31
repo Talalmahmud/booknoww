@@ -16,13 +16,25 @@ export default function SearchBar() {
   // Close when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target as Node)
-      ) {
-        setToggle(false);
+      const target = event.target as Node;
+
+      // If click is inside wrapper → ignore
+      if (wrapperRef.current && wrapperRef.current.contains(target)) {
+        return;
       }
+
+      // If click is inside a Radix Popover/Portal → ignore
+      if (
+        target instanceof HTMLElement &&
+        target.closest("[data-radix-popper-content-wrapper]")
+      ) {
+        return;
+      }
+
+      // Otherwise → close
+      setToggle(false);
     }
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);

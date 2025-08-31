@@ -53,6 +53,7 @@ export const GuestSelector: React.FC<GuestSelectorProps> = ({
       <PopoverContent
         align="start"
         className="w-[90vw] sm:w-80 max-w-md rounded-xl shadow-lg p-4"
+        onClick={(e) => e.stopPropagation()} // ✅ Prevent closing on inner clicks
       >
         <h4 className="mb-2 font-medium text-base">Guests & Rooms</h4>
         <div className="space-y-4">
@@ -73,9 +74,10 @@ export const GuestSelector: React.FC<GuestSelectorProps> = ({
                   variant="outline"
                   size="icon"
                   className="h-8 w-8 rounded-full disabled:opacity-40"
-                  onClick={() =>
-                    decrementGuest(key as keyof GuestSelectorProps["guests"])
-                  }
+                  onClick={(e) => {
+                    e.stopPropagation(); // ✅ prevent closing on increment
+                    decrementGuest(key as keyof GuestSelectorProps["guests"]);
+                  }}
                   disabled={guests[key as keyof typeof guests] <= cfg.min}
                 >
                   <Minus className="h-4 w-4" />
@@ -87,9 +89,10 @@ export const GuestSelector: React.FC<GuestSelectorProps> = ({
                   variant="outline"
                   size="icon"
                   className="h-8 w-8 rounded-full"
-                  onClick={() =>
-                    incrementGuest(key as keyof GuestSelectorProps["guests"])
-                  }
+                  onClick={(e) => {
+                    e.stopPropagation(); // ✅ prevent closing on increment
+                    incrementGuest(key as keyof GuestSelectorProps["guests"]);
+                  }}
                 >
                   <Plus className="h-4 w-4" />
                 </Button>
