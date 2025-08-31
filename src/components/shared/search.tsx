@@ -156,17 +156,14 @@ const HotelSearchPage = () => {
                 {
                   id: "freeBreakfast",
                   label: "Free breakfast",
-                  icon: <Utensils className="h-4 w-4 mr-2" />,
                 },
                 {
                   id: "petFriendly",
                   label: "Pet friendly",
-                  icon: <Car className="h-4 w-4 mr-2" />,
                 },
                 {
                   id: "petsAllowed",
                   label: "Pets allowed",
-                  icon: <Car className="h-4 w-4 mr-2" />,
                 },
               ].map((facility) => (
                 <div key={facility.id} className="flex items-center space-x-2">
@@ -183,7 +180,6 @@ const HotelSearchPage = () => {
                     htmlFor={facility.id}
                     className="text-sm font-normal flex items-center cursor-pointer"
                   >
-                    {facility.icon}
                     {facility.label}
                   </Label>
                 </div>
@@ -203,12 +199,10 @@ const HotelSearchPage = () => {
                 {
                   id: "hotels",
                   label: "Hotels",
-                  icon: <Hotel className="h-4 w-4 mr-2" />,
                 },
                 {
                   id: "entireHomes",
                   label: "Entire homes & apartments",
-                  icon: <Home className="h-4 w-4 mr-2" />,
                 },
               ].map((type) => (
                 <div key={type.id} className="flex items-center space-x-2">
@@ -223,7 +217,6 @@ const HotelSearchPage = () => {
                     htmlFor={type.id}
                     className="text-sm font-normal flex items-center cursor-pointer"
                   >
-                    {type.icon}
                     {type.label}
                   </Label>
                 </div>
