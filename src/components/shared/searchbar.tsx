@@ -114,13 +114,14 @@ export default function SearchBar() {
 
         {toggle && (
           <div
-            className={`transition-all duration-300 ${
+            className={cn(
+              "transition-all duration-500 overflow-hidden", // smooth expand/collapse
               toggle
-                ? "opacity-100 translate-y-0 mt-4"
-                : "opacity-0 -translate-y-2 pointer-events-none"
-            }`}
+                ? "opacity-100 translate-y-0 max-h-[800px] mt-4"
+                : "opacity-0 -translate-y-4 max-h-0"
+            )}
           >
-            <div className="rounded-full px-2 bg-slate-700 h-12 w-full md:hidden flex justify-between gap-2 items-center  ">
+            <div className="rounded-full px-2 bg-slate-700 h-12 w-full md:hidden flex justify-between gap-2 items-center">
               {["Hotel", "Resort", "Apartment", "House Boat"].map((item) => (
                 <button
                   key={item}
