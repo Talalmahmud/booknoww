@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -40,6 +40,17 @@ const MobileFilter = () => {
 
   const handleReviewScoreChange = (key: keyof typeof reviewScores) =>
     setReviewScores((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  useEffect(() => {
+    if (toggle) {
+      document.body.style.overflow = "hidden"; // Prevent background scrolling
+    } else {
+      document.body.style.overflow = "auto"; // Re-enable scrolling
+    }
+    return () => {
+      document.body.style.overflow = "auto"; // Cleanup on unmount
+    };
+  }, [toggle]);
 
   return (
     <div className="lg:hidden px-6 pt-4">

@@ -64,7 +64,7 @@ const WelcomePack = () => {
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-8">
       {/* Main Container */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl p-6 md:p-8 text-white overflow-hidden">
+      <div className="bg-gradient-to-r from-slate-500 to-purple-700 rounded-2xl p-6 md:p-8 text-white overflow-hidden">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Left Content - Welcome Message */}
           <div className="flex flex-col justify-between lg:w-2/5">
@@ -107,17 +107,17 @@ const WelcomePack = () => {
               <Button
                 variant="outline"
                 size="icon"
-                className="prev-button  hidden md:flex bg-white shadow-lg hover:bg-gray-50"
+                className="prev-p-button rounded-full  flex bg-white shadow-lg hover:bg-gray-50"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-5 w-5 text-black" />
               </Button>
 
               <Button
                 variant="outline"
                 size="icon"
-                className="next-button  hidden md:flex bg-white shadow-lg hover:bg-gray-50"
+                className="next-p-button rounded-full flex bg-white shadow-lg hover:bg-gray-50"
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-6 w-6 text-black" />
               </Button>
             </div>
 
@@ -125,8 +125,8 @@ const WelcomePack = () => {
             <Swiper
               modules={[Navigation, Pagination]}
               navigation={{
-                prevEl: ".prev-button",
-                nextEl: ".next-button",
+                prevEl: ".prev-p-button",
+                nextEl: ".next-p-button",
               }}
               spaceBetween={20}
               slidesPerView={1}
