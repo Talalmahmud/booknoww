@@ -112,52 +112,34 @@ export default function SearchBar() {
           </Button>
         </div>
 
-        <div
-          className={`transition-all duration-300 ${
-            toggle
-              ? "opacity-100 translate-y-0 mt-4"
-              : "opacity-0 -translate-y-2 pointer-events-none"
-          }`}
-        >
-          <div className="rounded-full px-2 bg-slate-700 h-12 w-full md:hidden flex justify-between gap-2 items-center overflow-x-auto scrollbar-hide">
-            {["Hotel", "Resort", "Apartment", "House Boat"].map((item) => (
-              <button
-                key={item}
-                className={cn(
-                  "font-medium px-4 py-2 rounded-full whitespace-nowrap text-sm transition-colors",
-                  tab === item
-                    ? "bg-white text-slate-800 shadow-sm"
-                    : "text-white hover:bg-white/20"
-                )}
-                onClick={() => setTab(item)}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-          {/* <div
-            onClick={() => setToggle(true)}
-            className="w-[425px] whitespace-nowrap justify-between items-center border border-gray-300 py-1.5 px-1 hidden md:flex rounded-full h-[46px] cursor-pointer hover:shadow-md transition"
+        {toggle && (
+          <div
+            className={`transition-all duration-300 ${
+              toggle
+                ? "opacity-100 translate-y-0 mt-4"
+                : "opacity-0 -translate-y-2 pointer-events-none"
+            }`}
           >
-            <div className="px-2 font-semibold text-[14px] truncate">Dhaka</div>
-            <div className="h-full w-[1px] mx-1 bg-gray-200"></div>
-            <div className="flex items-center gap-2 font-semibold text-[14px] px-4 py-3">
-              <p className="text-gray-800">Aug 30 – Aug 31</p>
-              <p className="font-normal text-gray-800">· 2 nights</p>
+            <div className="rounded-full px-2 bg-slate-700 h-12 w-full md:hidden flex justify-between gap-2 items-center  ">
+              {["Hotel", "Resort", "Apartment", "House Boat"].map((item) => (
+                <button
+                  key={item}
+                  className={cn(
+                    "font-medium px-4 py-2 rounded-full whitespace-nowrap text-sm transition-colors",
+                    tab === item
+                      ? "bg-white text-slate-800 shadow-sm"
+                      : "text-white hover:bg-white/20"
+                  )}
+                  onClick={() => setTab(item)}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
-            <div className="h-full w-[1px] bg-gray-200"></div>
-            <div className="px-2">
-              <p className="text-[14px] font-semibold text-gray-800">
-                2 guests
-              </p>
-            </div>
-            <Button className="rounded-full h-10 w-10 flex items-center justify-center bg-blue-600 hover:bg-blue-700">
-              <Search className="text-white h-5 w-5" />
-            </Button>
-          </div> */}
 
-          {toggle && <MainSearchBar />}
-        </div>
+            <MainSearchBar />
+          </div>
+        )}
       </div>
     </div>
   );
