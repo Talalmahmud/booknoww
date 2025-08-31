@@ -58,7 +58,10 @@ const MobileFilter = () => {
 
       <Button
         variant="outline"
-        onClick={() => setToggle(true)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setToggle(true);
+        }}
         className="flex items-center gap-2 rounded-full border-gray-300"
       >
         <Filter className="h-4 w-4" />

@@ -56,10 +56,10 @@ export function DateRangePicker({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-auto p-0 rounded-2xl shadow-lg border"
+          className="w-full p-0 rounded-2xl shadow-lg border"
           align="start"
         >
-          <div className="flex flex-col sm:flex-row">
+          <div className="flex w-full flex-col sm:flex-row">
             <Calendar
               mode="range"
               defaultMonth={value?.from}

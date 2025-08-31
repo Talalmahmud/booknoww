@@ -242,7 +242,7 @@ const FeaturedProperties = () => {
         <Button
           variant="outline"
           size="icon"
-          className="prev-button pre-t absolute left-0 top-1/2 transform -translate-y-1/2 z-10 -translate-x-1/2 hidden md:flex bg-white shadow-lg hover:bg-gray-50"
+          className="prev-f-button absolute left-0 top-1/2 rounded-full transform -translate-y-1/2 z-10 -translate-x-1/2 hidden md:flex bg-white shadow-lg hover:bg-gray-50"
         >
           <ChevronLeft className="h-5 w-5" />
         </Button>
@@ -250,7 +250,7 @@ const FeaturedProperties = () => {
         <Button
           variant="outline"
           size="icon"
-          className="next-button next-t absolute right-0 top-1/2 transform -translate-y-1/2 z-10 translate-x-1/2 hidden md:flex bg-white shadow-lg hover:bg-gray-50"
+          className="next-f-button next-t absolute rounded-full right-0 top-1/2 transform -translate-y-1/2 z-10 translate-x-1/2 hidden md:flex bg-white shadow-lg hover:bg-gray-50"
         >
           <ChevronRight className="h-5 w-5" />
         </Button>
@@ -258,8 +258,8 @@ const FeaturedProperties = () => {
         <Swiper
           modules={[Navigation, Pagination]}
           navigation={{
-            prevEl: ".prev-button",
-            nextEl: ".next-button",
+            prevEl: ".prev-f-button",
+            nextEl: ".next-f-button",
           }}
           spaceBetween={20}
           slidesPerView={1}
@@ -286,7 +286,7 @@ const FeaturedProperties = () => {
             .filter((property) => property.city === activeCity)
             .map((property) => (
               <SwiperSlide key={property.id}>
-                <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 my-1">
                   {/* Image */}
                   <div className="relative h-48">
                     <Image
@@ -305,7 +305,7 @@ const FeaturedProperties = () => {
                   {/* Content */}
                   <div className="p-5">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900 line-clamp-1">
+                      <h3 className="text-lg font-semibold line-clamp-2 text-gray-900 line-clamp-1">
                         {property.name}
                       </h3>
                       <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">
@@ -344,7 +344,7 @@ const FeaturedProperties = () => {
                     {/* Price */}
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="text-2xl font-bold text-gray-900">
+                        <span className="text-xl font-bold text-gray-900">
                           From ${property.price}
                         </span>
                         {isAccommodationProperty(property) && (
@@ -379,7 +379,7 @@ const FeaturedProperties = () => {
       )}
 
       {/* Footer CTA */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl p-8 text-center">
+      <div className="bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl mt-4 p-8 text-center">
         <h3 className="text-2xl font-bold text-white mb-4">
           Discover great deals on{" "}
           {activeCategory === "tour" ? "tours" : activeCategory + "s"} around
