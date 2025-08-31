@@ -35,7 +35,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-[280px] md:h-[300px] bg-cover bg-no-repeat bg-center bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1173&auto=format&fit=crop')]">
+    <div className="relative h-[320px] md:h-[220px] bg-cover bg-no-repeat bg-center bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1173&auto=format&fit=crop')]">
       <div className="absolute inset-0 pt-20 bg-blue-800/60 flex flex-col items-center justify-center text-center px-4">
         {/* Heading */}
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-sans font-bold text-white mb-4 leading-snug">
@@ -45,7 +45,7 @@ const Hero = () => {
         {/* Booking Box */}
         <div className="absolute flex flex-col pb-6 -bottom-28 bg-white w-full sm:w-[95%] md:w-[90%] lg:w-[85%] xl:w-[80%] max-w-6xl h-auto rounded-2xl shadow-xl mx-auto p-4 sm:p-6">
           {/* Tabs */}
-          <div className="rounded-full px-2 -mt-12 bg-slate-700 h-12 w-full flex justify-between gap-2 items-center overflow-x-auto scrollbar-hide">
+          <div className="rounded-full px-2 -mt-12 bg-slate-700 h-12 w-full sm:w-min mx-auto flex justify-between gap-2 items-center overflow-x-auto scrollbar-hide">
             {["Hotel", "Resort", "Apartment", "House Boat"].map((item) => (
               <button
                 key={item}
