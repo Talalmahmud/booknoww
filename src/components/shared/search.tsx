@@ -120,9 +120,9 @@ const HotelSearchPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto p-6">
+      <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto p-6">
         {/* Filter Sidebar */}
-        <div className=" hidden lg:block lg:w-1/4 space-y-8">
+        <div className=" hidden lg:block lg:w-1/4 space-y-8 border-[1px] border-gray-200 bg-white p-6 rounded-xl shadow-md">
           <div>
             <h3 className="text-lg font-semibold mb-4">Filter by:</h3>
 
@@ -134,8 +134,8 @@ const HotelSearchPage = () => {
               <Slider
                 value={priceRange}
                 onValueChange={setPriceRange}
-                min={0}
-                max={500}
+                min={1000}
+                max={50000}
                 step={10}
                 className="my-4"
               />

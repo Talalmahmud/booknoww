@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import MainSearchBar from "./main-search-bar";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import LoginPopover from "./login";
 
 export default function SearchBar() {
   const [tab, setTab] = useState("stays");
@@ -62,7 +63,7 @@ export default function SearchBar() {
               className="w-[425px] whitespace-nowrap justify-between items-center border border-gray-300 py-1.5 px-1 hidden md:flex rounded-full h-[46px] cursor-pointer hover:shadow-md transition"
             >
               <div className="px-2 font-semibold text-[14px] truncate">
-                Dhaka
+                Dhaka, Bangladesh
               </div>
               <div className="h-full w-[1px] mx-1 bg-gray-200"></div>
               <div className="flex items-center gap-2 font-semibold text-[14px] px-4 py-3">
@@ -84,9 +85,7 @@ export default function SearchBar() {
           {/* Right Side */}
           <div className="flex items-center gap-3">
             <Globe className="h-5 w-5 text-gray-700" />
-            <Button variant="outline" className="rounded-full px-6">
-              Sign In
-            </Button>
+            <LoginPopover />
           </div>
         </div>
 
@@ -95,7 +94,10 @@ export default function SearchBar() {
           onClick={() => setToggle(!toggle)}
           className="w-full whitespace-nowrap mt-4 justify-between items-center border border-gray-300 py-1.5 px-1 md:hidden flex rounded-full h-[46px] cursor-pointer hover:shadow-md transition"
         >
-          <div className="px-2 font-semibold text-[14px] truncate">Dhaka</div>
+          <div className="px-2 font-semibold text-[14px] truncate">
+            {" "}
+            Dhaka, Bangladesh
+          </div>
           <div className="h-full w-[1px] mx-1 bg-gray-200"></div>
           <div className="flex items-center gap-2 font-semibold text-[14px] px-4 py-3">
             <p className="text-gray-800">Aug 30 – Aug 31</p>
