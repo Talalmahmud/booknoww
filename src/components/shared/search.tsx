@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Star, Wifi, Car, Utensils, Home, Hotel, ThumbsUp } from "lucide-react";
 import Image from "next/image";
+import MobileFilter from "./mobile-filter";
 
 const HotelSearchPage = () => {
   const [priceRange, setPriceRange] = useState([60, 300]);
@@ -120,6 +121,7 @@ const HotelSearchPage = () => {
 
   return (
     <div className=" bg-gray-50">
+      <MobileFilter />
       <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto p-6">
         {/* Filter Sidebar */}
         <div className=" hidden lg:block lg:w-1/4 space-y-8 border-[1px] border-gray-200 bg-white p-6 rounded-xl shadow-md">

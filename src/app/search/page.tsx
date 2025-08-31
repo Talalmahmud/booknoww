@@ -1,3 +1,4 @@
+import MobileFilter from "@/components/shared/mobile-filter";
 import HotelSearchPage from "@/components/shared/search";
 import SearchBar from "@/components/shared/searchbar";
 import { Loader2 } from "lucide-react";
@@ -21,6 +22,7 @@ export default function Page() {
       <nav>
         <Suspense fallback={<SearchBarFallback />}>
           <SearchBar />
+          
           <HotelSearchPage />
         </Suspense>
       </nav>
