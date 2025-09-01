@@ -7,7 +7,15 @@ import { Slider } from "@/components/ui/slider";
 import { Star, Wifi, Car, Utensils, Home, Hotel, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import MobileFilter from "./mobile-filter";
-
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 const HotelSearchPage = () => {
   const [priceRange, setPriceRange] = useState([60, 300]);
   const [facilities, setFacilities] = useState({
@@ -58,6 +66,76 @@ const HotelSearchPage = () => {
     },
     {
       id: 3,
+      name: "Boutique Hotel Royal",
+      rating: 4,
+      distance: "28.19 mi from center",
+      badge: "Limited-time Deal",
+      amenities: ["Wi-Fi", "Parking available", "Restaurant"],
+      ratingScore: "Very Good",
+      originalPrice: 250,
+      discountedPrice: 199,
+      totalPrice: 225,
+      image:
+        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1170&auto=format&fit=crop",
+    },
+    {
+      id: 4,
+      name: "Boutique Hotel Royal",
+      rating: 4,
+      distance: "28.19 mi from center",
+      badge: "Limited-time Deal",
+      amenities: ["Wi-Fi", "Parking available", "Restaurant"],
+      ratingScore: "Very Good",
+      originalPrice: 250,
+      discountedPrice: 199,
+      totalPrice: 225,
+      image:
+        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1170&auto=format&fit=crop",
+    },
+    {
+      id: 5,
+      name: "Boutique Hotel Royal",
+      rating: 4,
+      distance: "28.19 mi from center",
+      badge: "Limited-time Deal",
+      amenities: ["Wi-Fi", "Parking available", "Restaurant"],
+      ratingScore: "Very Good",
+      originalPrice: 250,
+      discountedPrice: 199,
+      totalPrice: 225,
+      image:
+        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1170&auto=format&fit=crop",
+    },
+    {
+      id: 6,
+      name: "Boutique Hotel Royal",
+      rating: 4,
+      distance: "28.19 mi from center",
+      badge: "Limited-time Deal",
+      amenities: ["Wi-Fi", "Parking available", "Restaurant"],
+      ratingScore: "Very Good",
+      originalPrice: 250,
+      discountedPrice: 199,
+      totalPrice: 225,
+      image:
+        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1170&auto=format&fit=crop",
+    },
+    {
+      id: 7,
+      name: "Boutique Hotel Royal",
+      rating: 4,
+      distance: "28.19 mi from center",
+      badge: "Limited-time Deal",
+      amenities: ["Wi-Fi", "Parking available", "Restaurant"],
+      ratingScore: "Very Good",
+      originalPrice: 250,
+      discountedPrice: 199,
+      totalPrice: 225,
+      image:
+        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1170&auto=format&fit=crop",
+    },
+    {
+      id: 8,
       name: "Boutique Hotel Royal",
       rating: 4,
       distance: "28.19 mi from center",
@@ -124,7 +202,7 @@ const HotelSearchPage = () => {
       <MobileFilter />
       <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto p-6">
         {/* Filter Sidebar */}
-        <div className=" hidden lg:block lg:w-1/4 space-y-8 border-[1px] border-gray-200 bg-white p-6 rounded-xl shadow-md">
+        <div className=" hidden lg:block lg:w-1/4 h-full space-y-8 border-[1px] border-gray-200 bg-white p-6 rounded-xl shadow-md">
           <div>
             <h3 className="text-lg font-semibold mb-4">Filter by:</h3>
 
@@ -361,6 +439,31 @@ const HotelSearchPage = () => {
               </div>
             </div>
           ))}
+
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#" isActive>
+                  2
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">3</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </div>
     </div>
