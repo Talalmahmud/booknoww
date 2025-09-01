@@ -356,12 +356,13 @@ const HotelSearchPage = () => {
             >
               <div className="flex flex-col md:flex-row">
                 {/* Hotel Image */}
-                <div className="md:w-1/3 relative h-48 md:h-auto">
+                <div className="md:w-1/3 relative h-48 md:h-auto overflow-hidden">
                   <Image
                     src={hotel.image}
                     alt={hotel.name}
-                    fill
-                    className="object-cover"
+                    height={200}
+                    width={400}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                 </div>
 

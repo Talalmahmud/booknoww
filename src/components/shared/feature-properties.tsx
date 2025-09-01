@@ -288,12 +288,14 @@ const FeaturedProperties = () => {
               <SwiperSlide key={property.id}>
                 <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 my-1">
                   {/* Image */}
-                  <div className="relative h-48">
+
+                  <div className="relative h-48 overflow-hidden">
                     <Image
                       src={property.image}
                       alt={property.name}
-                      fill
-                      className="object-cover"
+                      height={200}
+                      width={400}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
                     <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1">
                       <span className="text-sm font-semibold text-gray-800">

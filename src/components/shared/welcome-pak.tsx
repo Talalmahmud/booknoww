@@ -153,12 +153,14 @@ const WelcomePack = () => {
                 <SwiperSlide key={deal.id}>
                   <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 h-full border border-gray-100">
                     {/* Image */}
-                    <div className="relative h-48">
+
+                    <div className="relative h-48 overflow-hidden">
                       <Image
                         src={deal.image}
                         alt={deal.hotel}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        height={200}
+                        width={400}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                       />
                       <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1">
                         <span className="text-sm font-semibold text-gray-800">
