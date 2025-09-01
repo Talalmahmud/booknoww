@@ -4,10 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Mail,
   Lock,
@@ -19,9 +22,8 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
-const LoginPopover = () => {
+const LoginDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"login" | "register" | "otp">("login");
   const [isLoading, setIsLoading] = useState(false);
@@ -83,27 +85,27 @@ const LoginPopover = () => {
   };
 
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
         <Button variant="outline" className="rounded-full">
           Login
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80 p-0" align="end">
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[400px] p-0">
         <div className="p-6">
           {/* Header */}
-          <div className="text-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-900">
+          <DialogHeader className="text-center mb-6">
+            <DialogTitle className="text-xl font-semibold text-gray-900">
               {step === "login" && "Welcome Back"}
               {step === "register" && "Create Account"}
               {step === "otp" && "Verify OTP"}
-            </h3>
-            <p className="text-sm text-gray-500 mt-1">
+            </DialogTitle>
+            <DialogDescription className="text-sm text-gray-500 mt-1">
               {step === "login" && "Sign in to your account"}
               {step === "register" && "Join us today"}
               {step === "otp" && "Enter the code sent to your email"}
-            </p>
-          </div>
+            </DialogDescription>
+          </DialogHeader>
 
           {/* Back Button */}
           {(step === "register" || step === "otp") && (
@@ -360,9 +362,9 @@ const LoginPopover = () => {
             </form>
           )}
         </div>
-      </PopoverContent>
-    </Popover>
+      </DialogContent>
+    </Dialog>
   );
 };
 
-export default LoginPopover;
+export default LoginDialog;
