@@ -154,9 +154,9 @@ const Footer = () => {
             <a href="#" className="hover:text-blue-400 transition-colors">
               Terms
             </a>
-            <a href="#" className="hover:text-blue-400 transition-colors">
+            {/* <a href="#" className="hover:text-blue-400 transition-colors">
               Sitemap
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
