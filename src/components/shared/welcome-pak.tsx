@@ -8,6 +8,8 @@ import { CheckCircle, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const WelcomePack = () => {
   const deals = [
@@ -60,9 +62,10 @@ const WelcomePack = () => {
         "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1025&auto=format&fit=crop",
     },
   ];
+  const router = useRouter();
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8">
+    <div className="w-full max-w-6xl mx-auto px-2 md:px-4 py-8">
       {/* Main Container */}
       <div className="bg-gradient-to-r from-slate-500 to-purple-700 rounded-2xl p-6 md:p-8 text-white overflow-hidden">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
@@ -151,7 +154,10 @@ const WelcomePack = () => {
             >
               {deals.map((deal) => (
                 <SwiperSlide key={deal.id}>
-                  <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 h-full border border-gray-100">
+                  <div
+                    onClick={() => router.push("/availability")}
+                    className="bg-white cursor-pointer rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 h-full border border-gray-100"
+                  >
                     {/* Image */}
 
                     <div className="relative h-48 overflow-hidden">

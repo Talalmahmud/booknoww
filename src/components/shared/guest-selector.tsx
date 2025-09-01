@@ -44,7 +44,7 @@ export const GuestSelector: React.FC<GuestSelectorProps> = ({
         >
           <div className="flex items-center gap-2 truncate">
             <Users className="h-4 w-4 text-gray-500" />
-            <span className="text-sm truncate">{summary}</span>
+            <span className="text-sm font-semibold truncate">{summary}</span>
           </div>
           <ChevronDown className="h-4 w-4 text-gray-500 opacity-70" />
         </Button>
@@ -52,10 +52,10 @@ export const GuestSelector: React.FC<GuestSelectorProps> = ({
 
       <PopoverContent
         align="start"
-        className="w-[90vw] sm:w-80 max-w-md rounded-xl shadow-lg p-4"
+        className=" rounded-xl shadow-lg p-4"
         onClick={(e) => e.stopPropagation()} // ✅ Prevent closing on inner clicks
       >
-        <h4 className="mb-2 font-medium text-base">Guests & Rooms</h4>
+        {/* <h4 className="mb-2 font-medium text-base">Guests & Rooms</h4> */}
         <div className="space-y-4">
           {Object.entries(guestConfig).map(([key, cfg]) => (
             <div
