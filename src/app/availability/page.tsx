@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Star, MapPin, ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
+import Header from "@/components/shared/header";
 
 const HotelDetailsPage = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -53,8 +54,20 @@ const HotelDetailsPage = () => {
   const displayedThumbnails = hotel.images.slice(0, 5);
   const remainingImagesCount = hotel.images.length - 5;
 
+  useEffect(() => {
+    if (isGalleryOpen) {
+      document.body.style.overflow = "hidden"; // Prevent background scrolling
+    } else {
+      document.body.style.overflow = "auto"; // Re-enable scrolling
+    }
+    return () => {
+      document.body.style.overflow = "auto"; // Cleanup on unmount
+    };
+  }, [isGalleryOpen]);
+
   return (
     <div className="min-h-screen bg-gray-50">
+      <Header />
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Hotel Name and Rating */}
@@ -277,7 +290,7 @@ const HotelDetailsPage = () => {
               height={1000}
               width={1600}
               priority
-              className="max-h-[70vh] w-full object-contain rounded-lg shadow-lg transition-all duration-300"
+              className="max-h-[65vh] w-full object-contain rounded-lg shadow-lg transition-all duration-300"
             />
             <div className="text-white text-sm mt-3">
               {currentImageIndex + 1} / {hotel.images.length}
