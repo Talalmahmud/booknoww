@@ -11,8 +11,10 @@ import Link from "next/link";
 
 const MainSearchBar = () => {
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
-  const [location, setLocation] = useState("");
-
+  const [location, setLocation] = useState<{
+    type: string;
+    name: string;
+  } | null>(null);
   const [guests, setGuests] = useState({
     adults: 2,
     children: 0,
