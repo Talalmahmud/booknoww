@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -10,58 +10,30 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Property } from "./feature-properties";
+import api from "@/lib/axios";
 
 const WelcomePack = () => {
-  const deals = [
-    {
-      id: 1,
-      city: "Atlanta",
-      hotel: "AC Hotel Atlanta Downtown",
-      rating: 4,
-      reviews: 107,
-      cancellation: "Free Cancellation",
-      originalPrice: 136,
-      discountedPrice: 131,
-      image:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1170&auto=format&fit=crop",
-    },
-    {
-      id: 2,
-      city: "Atlanta",
-      hotel: "Atlanta Marriott Marquis",
-      rating: 4.5,
-      reviews: 74,
-      cancellation: "Free Cancellation",
-      originalPrice: 143,
-      discountedPrice: 118,
-      image:
-        "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1170&auto=format&fit=crop",
-    },
-    {
-      id: 3,
-      city: "New York",
-      hotel: "The Ritz-Carlton New York",
-      rating: 4.8,
-      reviews: 256,
-      cancellation: "Free Cancellation",
-      originalPrice: 299,
-      discountedPrice: 249,
-      image:
-        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1170&auto=format&fit=crop",
-    },
-    {
-      id: 4,
-      city: "Miami",
-      hotel: "Fontainebleau Miami Beach",
-      rating: 4.3,
-      reviews: 189,
-      cancellation: "Free Cancellation",
-      originalPrice: 325,
-      discountedPrice: 289,
-      image:
-        "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1025&auto=format&fit=crop",
-    },
-  ];
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchProperties = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await api.get(`/properties/featured`);
+      const resData = await response.data;
+      console.log(resData);
+      setProperties(resData.data);
+    } catch (error) {
+      console.log("Failed to fetch properties", error || "");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProperties();
+  }, [fetchProperties]);
   const router = useRouter();
 
   return (
@@ -152,34 +124,39 @@ const WelcomePack = () => {
               }}
               className="w-full"
             >
-              {deals.map((deal) => (
-                <SwiperSlide key={deal.id}>
+              {properties.map((property) => (
+                <SwiperSlide key={property.id}>
                   <div
                     onClick={() => router.push("/availability")}
-                    className="bg-white cursor-pointer rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 h-full border border-gray-100"
+                    className="bg-white cursor-pointer rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 my-1"
                   >
                     {/* Image */}
 
                     <div className="relative h-48 overflow-hidden">
                       <Image
-                        src={deal.image}
-                        alt={deal.hotel}
+                        src={property.thumbImg}
+                        alt={property.title}
                         height={200}
                         width={400}
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                       />
-                      <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1">
-                        <span className="text-sm font-semibold text-gray-800">
-                          {deal.city}
-                        </span>
-                      </div>
+                      {/* <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1">
+                                    <span className="text-sm font-semibold text-gray-800">
+                                      {property.city}
+                                    </span>
+                                  </div> */}
                     </div>
 
                     {/* Content */}
                     <div className="p-5">
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">
-                        {deal.hotel}
-                      </h3>
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-lg font-semibold line-clamp-2 text-gray-900 line-clamp-1">
+                          {property.title}
+                        </h3>
+                        {/* <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">
+                                      {property.tag}
+                                    </span> */}
+                      </div>
 
                       {/* Rating */}
                       <div className="flex items-center gap-2 mb-3">
@@ -189,7 +166,7 @@ const WelcomePack = () => {
                               key={i}
                               size={14}
                               className={
-                                i < Math.floor(deal.rating)
+                                i < Math.floor(property.ratings)
                                   ? "fill-yellow-400 text-yellow-400"
                                   : "fill-gray-300 text-gray-300"
                               }
@@ -197,29 +174,27 @@ const WelcomePack = () => {
                           ))}
                         </div>
                         <span className="text-sm text-gray-600">
-                          {deal.rating}/5 • {deal.reviews} reviews
-                        </span>
-                      </div>
-
-                      {/* Cancellation */}
-                      <div className="flex items-center mb-4">
-                        <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                        <span className="text-sm text-green-600 font-medium">
-                          {deal.cancellation}
+                          {property.ratings}/5 • {property.reviews.length}{" "}
+                          reviews
                         </span>
                       </div>
 
                       {/* Price */}
                       <div className="flex items-center justify-between">
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-2xl font-bold text-gray-900">
-                            ${deal.discountedPrice}
+                        <div>
+                          <span className="text-xl font-bold text-gray-900">
+                            BDT {property.price - property.discount}
                           </span>
-                          <span className="text-lg text-gray-400 line-through">
-                            ${deal.originalPrice}
-                          </span>
+                          {property.discount && (
+                            <span className="text-sm text-gray-500 ml-2">
+                              <span className=" line-through">
+                                {property.price}
+                              </span>{" "}
+                              / night
+                            </span>
+                          )}
                         </div>
-                        <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 transition-colors duration-300">
+                        <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm">
                           Book Now
                         </Button>
                       </div>

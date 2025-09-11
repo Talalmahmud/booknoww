@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,27 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
+import api from "@/lib/axios";
+
+interface Offer {
+  id: string;
+  tnc: string;
+  tag: string;
+  facilities: string;
+  others: string;
+  couponId: string;
+  coupon: {
+    id: string;
+    code: string;
+    title: string;
+    discount: number;
+    status: boolean;
+    startTime: string;
+    expireTime: string;
+    description: string;
+    imageUrl: string;
+  };
+}
 
 const WeeklyDeals = () => {
   const deals = [
@@ -48,6 +69,23 @@ const WeeklyDeals = () => {
         "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1174&auto=format&fit=crop",
     },
   ];
+
+  const [offers, setOffers] = useState<Offer[]>([]);
+
+  const fetchOffer = async () => {
+    try {
+      const res = await api.get("/offer");
+      const resData = res.data;
+      setOffers(res.data.data);
+      console.log(resData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchOffer();
+  }, []);
+  console.log(offers);
 
   return (
     <div className="w-full max-w-[1160px] mx-auto mt-[100px] px-4 py-8">
@@ -107,14 +145,14 @@ const WeeklyDeals = () => {
           }}
           className="w-full"
         >
-          {deals.map((deal) => (
+          {offers.map((deal) => (
             <SwiperSlide key={deal.id}>
               <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full">
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src={deal.image}
-                    alt={deal.title}
+                    src={deal.coupon.imageUrl}
+                    alt={deal.coupon.id}
                     height={200}
                     width={400}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
