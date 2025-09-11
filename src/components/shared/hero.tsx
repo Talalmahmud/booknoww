@@ -12,7 +12,10 @@ import Link from "next/link";
 const Hero = () => {
   const [activeItem, setActiveItem] = useState("Hotel");
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState<{
+    type: string;
+    name: string;
+  } | null>(null);
 
   const [guests, setGuests] = useState({
     adults: 2,
@@ -33,6 +36,7 @@ const Hero = () => {
       ),
     }));
   };
+  console.log(location);
 
   return (
     <div className="relative h-[320px] md:h-[220px] bg-cover bg-no-repeat bg-center bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1173&auto=format&fit=crop')]">
