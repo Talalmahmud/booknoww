@@ -36,7 +36,6 @@ const Hero = () => {
       ),
     }));
   };
-  console.log(location);
 
   return (
     <div className="relative h-[320px] md:h-[220px] bg-cover bg-no-repeat bg-center bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1173&auto=format&fit=crop')]">
@@ -88,7 +87,10 @@ const Hero = () => {
             </div>
 
             {/* Search button */}
-            <Link href={"/search"} className="lg:col-span-1 flex">
+            <Link
+              href={`/search?${location?.type}=${location?.name}&child=${guests.adults}&adult=${guests.adults}&room=${guests.rooms}&start=${dateRange?.from}&end=${dateRange?.to}`}
+              className="lg:col-span-1 flex"
+            >
               <Button className="w-full h-14 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold shadow">
                 <Search className="mr-2 h-4 w-4" />
                 Search
