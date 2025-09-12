@@ -8,6 +8,7 @@ import { DateRangePicker } from "../ui/date-range-picker";
 import { LocationCombobox } from "../ui/location-combobox";
 import { GuestSelector } from "./guest-selector";
 import Link from "next/link";
+import { format } from "date-fns";
 
 const Hero = () => {
   const [activeItem, setActiveItem] = useState("Hotel");
@@ -88,7 +89,15 @@ const Hero = () => {
 
             {/* Search button */}
             <Link
-              href={`/search?${location?.type}=${location?.name}&child=${guests.adults}&adult=${guests.adults}&room=${guests.rooms}&start=${dateRange?.from}&end=${dateRange?.to}`}
+              href={`/search?${location?.type}=${location?.name}&child=${
+                guests.adults
+              }&adult=${guests.adults}&room=${guests.rooms}&start=${format(
+                new Date(dateRange?.from || new Date()),
+                "yyyy-MM-dd"
+              )}&end=${format(
+                new Date(dateRange?.to || new Date()),
+                "yyyy-MM-dd"
+              )}`}
               className="lg:col-span-1 flex"
             >
               <Button className="w-full h-14 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold shadow">

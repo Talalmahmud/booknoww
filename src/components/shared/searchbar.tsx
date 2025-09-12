@@ -11,6 +11,7 @@ import LoginPopover from "./login";
 export default function SearchBar() {
   const [tab, setTab] = useState("stays");
   const [toggle, setToggle] = useState(false);
+
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   // Close when clicking outside
