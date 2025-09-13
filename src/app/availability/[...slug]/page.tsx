@@ -12,7 +12,7 @@ const HotelDetailsPage = async ({
   console.log(slug);
 
   const res = await fetch(
-    `http://localhost:8000/api/v1/search-availability/?propertyId=${slug[0]}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/search-availability/?propertyId=${slug[0]}`
   );
   const property = await res.json();
   console.log(property);
