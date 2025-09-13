@@ -7,10 +7,17 @@ import MainSearchBar from "./main-search-bar";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import LoginPopover from "./login";
+import { useSearchParams } from "next/navigation";
+import { differenceInDays, format } from "date-fns";
 
 export default function SearchBar() {
-  const [tab, setTab] = useState("stays");
+  const searchParams = useSearchParams();
+  const [tab, setTab] = useState(searchParams.get("propertyType") || "stays");
   const [toggle, setToggle] = useState(false);
+  const searchParms = useSearchParams();
+  const locationName = searchParms.get("district");
+  const startDate = searchParms.get("start");
+  const endDate = searchParms.get("end");
 
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -76,12 +83,22 @@ export default function SearchBar() {
               className="w-[425px] whitespace-nowrap justify-between items-center border border-gray-300 py-1.5 px-1 hidden md:flex rounded-full h-[46px] cursor-pointer hover:shadow-md transition"
             >
               <div className="px-2 font-semibold text-[14px] truncate">
-                Dhaka, Bangladesh
+                {locationName}
               </div>
               <div className="h-full w-[1px] mx-1 bg-gray-200"></div>
               <div className="flex items-center gap-2 font-semibold text-[14px] px-4 py-3">
-                <p className="text-gray-800">Aug 30 – Aug 31</p>
-                <p className="font-normal text-gray-800">· 2 nights</p>
+                <p className="text-gray-800">
+                  {format(new Date(startDate || new Date()), "MMM-dd")} –{" "}
+                  {format(new Date(endDate || new Date()), "MMM-dd")}
+                </p>
+                <p className="font-normal text-gray-800">
+                  ·
+                  {differenceInDays(
+                    format(new Date(endDate || new Date()), "MMM-dd"),
+                    format(new Date(startDate || new Date()), "MMM-dd")
+                  )}
+                  nights
+                </p>
               </div>
               <div className="h-full w-[1px] bg-gray-200"></div>
               <div className="px-2">

@@ -1,10 +1,21 @@
-"use client";
 import { Star, MapPin, Siren, ShoppingCart } from "lucide-react";
 import Header from "@/components/shared/header";
 import PropertyGallery from "@/components/shared/property-image-gellary";
 import RoomGallary from "@/components/shared/room-image-gallery";
 
-const HotelDetailsPage = () => {
+const HotelDetailsPage = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
+  const { slug } = await params;
+  console.log(slug);
+
+  const res = await fetch(
+    `http://localhost:8000/api/v1/search-availability/?propertyId=${slug[0]}`
+  );
+  const property = await res.json();
+  console.log(property);
   // Sample hotel data
   const hotel = {
     name: "Grand Luxury Resort & Spa",
@@ -33,21 +44,23 @@ const HotelDetailsPage = () => {
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Hotel Name and Rating */}
         <div className="mb-4">
-          <h1 className="text-3xl font-bold text-gray-900">{hotel.name}</h1>
+          <h1 className="text-3xl font-bold text-gray-900">
+            {property.data.title}
+          </h1>
           <div className="flex items-center mt-2">
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
                   className={`h-5 w-5 ${
-                    i < Math.floor(hotel.rating)
+                    i < Math.floor(property.data.ratings)
                       ? "text-yellow-400 fill-current"
                       : "text-gray-300"
                   }`}
                 />
               ))}
               <span className="ml-2 text-gray-700">
-                {hotel.rating} ({hotel.reviewCount} reviews)
+                {property.data.ratings} ({property.data.reviews.length} reviews)
               </span>
             </div>
           </div>
@@ -56,12 +69,14 @@ const HotelDetailsPage = () => {
         {/* Address */}
         <div className="flex items-center text-gray-600 mb-6">
           <MapPin className="h-5 w-5 mr-1" />
-          <span>{hotel.address}</span>
+          <span>{property.data.address}</span>
         </div>
 
         {/* Image Gallery */}
         <div className="mb-8">
-          <PropertyGallery images={hotel.images} />
+          <PropertyGallery
+            images={[property.data.thumbImg, ...property.data.propertyImages]}
+          />
         </div>
 
         {/* Description and Booking Card */}

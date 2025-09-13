@@ -2,9 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
+
 import { Star } from "lucide-react";
 import Image from "next/image";
 import MobileFilter from "./mobile-filter";
@@ -17,19 +15,24 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useSearchParams } from "next/navigation";
-import type { Hotel } from "@/types/hotel"; // 👈 import types
+import { useRouter, useSearchParams } from "next/navigation";
+import { Property } from "@/app/type";
+import Link from "next/link";
 
-const HotelSearchPage = () => {
+const SearchPage = () => {
   const searchParams = useSearchParams();
-  const [hotels, setHotels] = useState<Hotel[]>([]); // ✅ typed state
+  const [hotels, setHotels] = useState<Property[]>([]); // ✅ typed state
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchHotels = async () => {
       setLoading(true);
       try {
-        const url = `http://localhost:8000/api/v1/search-property?${searchParams.toString()}`;
+        const url = `${
+          process.env.NEXT_PUBLIC_BASE_URL
+        }/search-property?${searchParams.toString()}`;
         const res = await fetch(url);
         const data = await res.json();
         if (res.ok) {
@@ -151,9 +154,12 @@ const HotelSearchPage = () => {
                         <p className="text-sm text-gray-600">
                           per night, taxes may apply
                         </p>
-                        <Button className="mt-2 bg-blue-600 hover:bg-blue-700">
-                          See availability
-                        </Button>
+                        <Link href={`/availability?productId=${hotel.id}`}>
+                          {" "}
+                          <Button className="mt-2 bg-blue-600 hover:bg-blue-700">
+                            See availability
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -190,6 +196,4 @@ const HotelSearchPage = () => {
   );
 };
 
-export default HotelSearchPage;
-
-export default HotelSearchPage;
+export default SearchPage;

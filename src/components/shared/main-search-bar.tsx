@@ -8,6 +8,7 @@ import { DateRangePicker } from "../ui/date-range-picker";
 import { LocationCombobox } from "../ui/location-combobox";
 import { GuestSelector } from "./guest-selector";
 import Link from "next/link";
+import { format } from "date-fns";
 
 const MainSearchBar = () => {
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
@@ -57,7 +58,17 @@ const MainSearchBar = () => {
       </div>
 
       {/* Search button */}
-      <Link href={"/search"} className="lg:col-span-1 flex">
+      <Link
+        href={`/search?propertyType=${location?.type}&propertyName=${
+          location?.name
+        }&child=${guests.adults}&adult=${guests.adults}&room=${
+          guests.rooms
+        }&start=${format(
+          new Date(dateRange?.from || new Date()),
+          "yyyy-MM-dd"
+        )}&end=${format(new Date(dateRange?.to || new Date()), "yyyy-MM-dd")}`}
+        className="lg:col-span-1 flex"
+      >
         <Button className="w-full h-14 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold shadow">
           <Search className="mr-2 h-4 w-4" />
           Search
