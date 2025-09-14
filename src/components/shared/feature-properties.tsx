@@ -178,7 +178,7 @@ const FeaturedProperties = () => {
             {properties.map((property) => (
               <SwiperSlide key={property.id}>
                 <div
-                  onClick={() => router.push("/availability")}
+                  onClick={() => router.push(`/availability/${property.id}`)}
                   className="bg-white cursor-pointer rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 my-1"
                 >
                   {/* Image */}
@@ -278,7 +278,8 @@ const FeaturedProperties = () => {
             {activeCategory === "tour" ? "tours" : activeCategory + "s"} around
             the world
           </h3>
-          <Button className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg">
+          <Button>
+            {" "}
             Go Now
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>

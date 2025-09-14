@@ -127,7 +127,7 @@ const WelcomePack = () => {
               {properties.map((property) => (
                 <SwiperSlide key={property.id}>
                   <div
-                    onClick={() => router.push("/availability")}
+                    onClick={() => router.push(`/availability/${property.id}`)}
                     className="bg-white cursor-pointer rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 my-1"
                   >
                     {/* Image */}
@@ -194,9 +194,11 @@ const WelcomePack = () => {
                             </span>
                           )}
                         </div>
-                        <Link href={`/availability/${property.id}`}><Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm">
-                          Book Now
-                        </Button></Link>
+                        <Link href={`/availability/${property.id}`}>
+                          <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm">
+                            Book Now
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </div>
