@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/axios";
+import Link from "next/link";
 
 // Type Definitions
 type Category = {
@@ -243,9 +244,12 @@ const FeaturedProperties = () => {
                           </span>
                         )}
                       </div>
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm">
-                        Book Now
-                      </Button>
+                      <Link href={`/availability/${property.id}`}>
+                        {" "}
+                        <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm">
+                          Book Now
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </div>

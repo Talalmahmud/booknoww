@@ -194,9 +194,9 @@ const WelcomePack = () => {
                             </span>
                           )}
                         </div>
-                        <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm">
+                        <Link href={`/availability/${property.id}`}><Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm">
                           Book Now
-                        </Button>
+                        </Button></Link>
                       </div>
                     </div>
                   </div>

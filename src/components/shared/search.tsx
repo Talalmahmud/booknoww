@@ -154,7 +154,7 @@ const SearchPage = () => {
                         <p className="text-sm text-gray-600">
                           per night, taxes may apply
                         </p>
-                        <Link href={`/availability?productId=${hotel.id}`}>
+                        <Link href={`/availability/${hotel.id}`}>
                           {" "}
                           <Button className="mt-2 bg-blue-600 hover:bg-blue-700">
                             See availability

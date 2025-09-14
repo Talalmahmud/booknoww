@@ -56,7 +56,7 @@ const RoomGallary = ({ images }: Props) => {
           onClick={() => openGallery(0)}
         >
           <Image
-            src={images[0]}
+            src={images[0] || "/no-image.png"}
             alt={images[0]}
             height={200}
             width={400}
@@ -73,7 +73,7 @@ const RoomGallary = ({ images }: Props) => {
               onClick={() => openGallery(index + 1)}
             >
               <Image
-                src={image}
+                src={image || "/no-image.png"}
                 alt={` ${index + 2}`}
                 height={200}
                 width={400}

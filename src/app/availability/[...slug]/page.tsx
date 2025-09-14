@@ -2,6 +2,7 @@ import { Star, MapPin, Siren, ShoppingCart } from "lucide-react";
 import Header from "@/components/shared/header";
 import PropertyGallery from "@/components/shared/property-image-gellary";
 import RoomGallary from "@/components/shared/room-image-gallery";
+import Image from "next/image";
 
 const HotelDetailsPage = async ({
   params,
@@ -36,6 +37,7 @@ const HotelDetailsPage = async ({
       "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
   };
+  console.log(property.data.roomTypes[0]);
 
   return (
     <div className="min-h-screen bg-gray-200">
@@ -83,47 +85,73 @@ const HotelDetailsPage = async ({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Description */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-semibold mb-4">About This Hotel</h2>
-            <p className="text-gray-700 leading-relaxed">{hotel.description}</p>
+            <h2 className="text-2xl font-semibold mb-4">
+              About This {property.data.propertyType.name}
+            </h2>
+            <p className="text-gray-700 leading-relaxed">
+              {property.data.descriptions}
+            </p>
           </div>
 
           {/* room Card */}
         </div>
+
         <div className=" flex gap-6">
           <div className=" w-full space-y-4">
-            <div className=" bg-white p-2 rounded-md w-full flex flex-col md:flex-row gap-2">
-              {" "}
-              <RoomGallary images={hotel.images} />
-              <div className=" w-2/3 space-y-2">
-                <div className=" flex flex-col gap-1">
-                  <p className=" font-bold text-[20px]">Facilities</p>
-                  <div className=" grid grid-cols-2 justify-between items-center"></div>
-                </div>
-                <div className=" flex flex-col gap-1">
-                  <p className=" font-bold text-[20px]">Meal Plan</p>
-                  <div className=" grid grid-cols-1 gap-1"></div>
+            {property.data.roomTypes.map((item, index) => (
+              <div
+                key={index}
+                className=" bg-white p-2 rounded-md w-full flex flex-col md:flex-row gap-2"
+              >
+                {" "}
+                <RoomGallary images={[item.thumbImg, ...item.roomImages]} />
+                <div className=" w-2/3 space-y-2">
+                  <div className=" flex flex-col gap-1">
+                    <p className=" font-bold text-[20px]">{item.title}</p>
+                    <p className=" font-bold text-[14px]">Facilities</p>
+                    <div className="flex flex-wrap gap-4 mb-4">
+                      {property.data.facilities?.map((facility) => (
+                        <div
+                          key={facility.facilityIcon?.id}
+                          className="flex items-center gap-[2px] text-sm text-gray-600"
+                        >
+                          <Image
+                            src={facility.facilityIcon.iconUrl}
+                            alt={facility.facilityIcon.title}
+                            height={16}
+                            width={16}
+                          />{" "}
+                          <span>{facility.facilityIcon?.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className=" flex flex-col gap-1">
+                    <p className=" font-bold text-[20px]">Meal Plan</p>
+                    <div className=" grid grid-cols-1 gap-1"></div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className=" bg-white p-2 rounded-md w-full flex flex-col md:flex-row gap-2">
-              {" "}
-              <RoomGallary images={hotel.images} />
-              <div className=" w-2/3 space-y-2">
-                <p className=" flex items-center text-[18px] font-sans font-semibold text-orange-500">
-                  <Siren className=" h-8 w-8 text-red-600 pr-2" /> Hurry up 4
-                  rooms are available
-                </p>
-                <div className=" flex flex-col gap-1">
-                  <p className=" font-bold text-[20px]">Facilities</p>
-                  <div className=" grid grid-cols-2 justify-between items-center"></div>
-                </div>
-                <div className=" flex flex-col gap-1">
-                  <p className=" font-bold text-[20px]">Meal Plan</p>
-                  <div className=" grid grid-cols-1 gap-1"></div>
-                </div>
-              </div>
-            </div>
+            ))}{" "}
           </div>
+          {/* <div className=" bg-white p-2 rounded-md w-full flex flex-col md:flex-row gap-2">
+            {" "}
+            <RoomGallary images={hotel.images} />
+            <div className=" w-2/3 space-y-2">
+              <p className=" flex items-center text-[18px] font-sans font-semibold text-orange-500">
+                <Siren className=" h-8 w-8 text-red-600 pr-2" /> Hurry up 4
+                rooms are available
+              </p>
+              <div className=" flex flex-col gap-1">
+                <p className=" font-bold text-[20px]">Facilities</p>
+                <div className=" grid grid-cols-2 justify-between items-center"></div>
+              </div>
+              <div className=" flex flex-col gap-1">
+                <p className=" font-bold text-[20px]">Meal Plan</p>
+                <div className=" grid grid-cols-1 gap-1"></div>
+              </div>
+            </div>
+          </div> */}
           <div className=" hidden md:block w-[400px] h-20 bg-white sticky top-20 right-0"></div>
         </div>
         <div className=" h-[800px] w-full bg-amber-300"></div>
