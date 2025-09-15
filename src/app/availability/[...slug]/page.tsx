@@ -92,7 +92,7 @@ const HotelDetailsPage = async ({
   );
   const property = await res.json();
   const hotel: Hotel = property.data;
-
+  console.log(hotel.roomTypes[0].roomAvailability);
   return (
     <div className="min-h-screen bg-blue-100">
       <Header />
