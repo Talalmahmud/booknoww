@@ -2,9 +2,10 @@
 import Image from "next/image";
 import RoomGallary from "./room-image-gallery";
 import { Facility, RoomAvailability } from "@/app/availability/[...slug]/page";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
+import { storeBooking } from "@/services/cart";
 
 type RoomType = {
   id: string;
@@ -57,6 +58,10 @@ const RoomCard = ({ room }: { room: RoomType }) => {
 
     alert("Room added to cart ✅");
   };
+
+  useEffect(() => {
+    storeBooking("hotel", room.id, "2025-09-20", "2025-09-25", roomCount);
+  }, [roomCount]);
 
   return (
     <div className="bg-white p-4 rounded-lg shadow flex flex-col md:flex-row gap-4">
