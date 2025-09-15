@@ -3,6 +3,8 @@ import Image from "next/image";
 import RoomGallary from "./room-image-gallery";
 import { Facility, RoomAvailability } from "@/app/availability/[...slug]/page";
 import { useState } from "react";
+import { Button } from "../ui/button";
+import { MinusCircle, PlusCircle } from "lucide-react";
 
 type RoomType = {
   id: string;
@@ -17,18 +19,44 @@ type RoomType = {
 
 const RoomCard = ({ room }: { room: RoomType }) => {
   const firstAvailability = room.roomAvailability[0];
+  const totalRoom = room.roomAvailability[0].rooms;
 
   const [selectedMeal, setSelectedMeal] = useState<{
     id: string;
     price: number;
   }>(() => {
     const firstMeal = firstAvailability?.mealOptions?.[0];
-    console.log(firstMeal);
     return {
       id: firstMeal?.id || "",
       price: firstMeal?.price || 0,
     };
   });
+
+  const [roomCount, setRoomCount] = useState(1);
+
+  // handle book now
+  const handleBookNow = () => {
+    const bookingItem = {
+      roomId: room.id,
+      title: room.title,
+      mealId: selectedMeal.id,
+      mealPrice: selectedMeal.price,
+      roomCount,
+      totalPrice: selectedMeal.price * roomCount,
+      thumbImg: room.thumbImg,
+    };
+
+    // Get old cart
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    // Add new item
+    const updatedCart = [...existingCart, bookingItem];
+
+    // Save to localStorage
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    alert("Room added to cart ✅");
+  };
 
   return (
     <div className="bg-white p-4 rounded-lg shadow flex flex-col md:flex-row gap-4">
@@ -73,7 +101,7 @@ const RoomCard = ({ room }: { room: RoomType }) => {
                 >
                   <input
                     type="radio"
-                    name={`meal-${room.id}`} // group radio by room
+                    name={`meal-${room.id}`}
                     checked={selectedMeal.id === meal.id}
                     onChange={() =>
                       setSelectedMeal({ id: meal.id, price: meal.price })
@@ -87,12 +115,35 @@ const RoomCard = ({ room }: { room: RoomType }) => {
           </div>
         )}
 
+        {/* Room Selector */}
+        <div className="flex items-center gap-3">
+          <p className="font-semibold">Select Rooms:</p>
+          <Button
+            onClick={() => setRoomCount((prev) => Math.max(1, prev - 1))}
+            className=" bg-orange-800 rounded-full h-6 w-6 cursor-pointer"
+          >
+            <MinusCircle className=" min-h-4 min-w-4" />
+          </Button>
+          <span className="px-3">{roomCount}</span>
+          <Button
+            onClick={() =>
+              setRoomCount((prev) => Math.min(totalRoom, prev + 1))
+            }
+            className=" bg-orange-800 rounded-full h-6 w-6 cursor-pointer "
+          >
+            <PlusCircle className=" min-h-4 min-w-4" />
+          </Button>
+        </div>
+
         {/* Price */}
         <div className="flex justify-between items-center pt-2 border-t">
           <p className="text-lg font-bold text-green-600">
-            BDT {selectedMeal.price}
+            BDT {selectedMeal.price * roomCount}
           </p>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <button
+            onClick={handleBookNow}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          >
             Book Now
           </button>
         </div>

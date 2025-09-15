@@ -149,7 +149,7 @@ const HotelDetailsPage = async ({
               <h2 className="text-2xl font-semibold mb-4">Available Rooms</h2>
               <div className="space-y-6">
                 {hotel.roomTypes.map((room) => (
-                  <RoomCard key={room.id} room={room} />
+                  <RoomCard key={room.id}  room={room} />
                 ))}
               </div>
             </div>
