@@ -2,10 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-
-import { Star } from "lucide-react";
+import { Star, ThumbsUp } from "lucide-react";
 import Image from "next/image";
-import MobileFilter from "./mobile-filter";
 import {
   Pagination,
   PaginationContent,
@@ -18,14 +16,53 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { Property } from "@/app/type";
 import Link from "next/link";
+import api from "@/lib/axios";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { SearchFilter } from "./search-filter";
 
+export type FilterOption = {
+  label: string;
+  value: string;
+  icon?: React.ReactNode;
+};
+
+export type FilterSection =
+  | {
+      title: string;
+      key: string;
+      type: "range";
+      min: number;
+      max: number;
+      step: number;
+    }
+  | {
+      title: string;
+      key: string;
+      type?: "checkbox";
+      options: FilterOption[];
+    };
+
+// --------------------------
+// Page Component
+// --------------------------
 const SearchPage = () => {
   const searchParams = useSearchParams();
-  const [hotels, setHotels] = useState<Property[]>([]); // ✅ typed state
+  const [hotels, setHotels] = useState<Property[]>([]);
   const [loading, setLoading] = useState(false);
+  const [searchFacilities, setSearchFacilities] = useState<
+    { label: string; value: string }[]
+  >([]);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const router = useRouter();
-
+  // --------------------------
+  // Fetch Hotels on Filter Change
+  // --------------------------
   useEffect(() => {
     const fetchHotels = async () => {
       setLoading(true);
@@ -50,8 +87,74 @@ const SearchPage = () => {
     fetchHotels();
   }, [searchParams]);
 
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }).map((_, i) => (
+  // --------------------------
+  // Fetch Available Facilities
+  // --------------------------
+  useEffect(() => {
+    const fetchFacilities = async () => {
+      const res = await api.get("/search-facilites");
+      const resData = await res.data;
+      console.log(resData.data);
+      setSearchFacilities(
+        resData.data.map((item: { id: string; title: string }) => ({
+          label: item.title,
+          value: item.id,
+        }))
+      );
+    };
+    fetchFacilities();
+  }, []);
+
+  // --------------------------
+  // Build Filter Sections
+  // --------------------------
+  const filterSections: FilterSection[] = [
+    {
+      title: "Your budget (per night)",
+      key: "maxPrice",
+      type: "range",
+      min: 1000,
+      max: 50000,
+      step: 100,
+    },
+    {
+      title: "Facilities",
+      key: "facilities",
+      options: searchFacilities,
+    },
+    {
+      title: "Stay types",
+      key: "propertyType",
+      options: [
+        { label: "Hotel", value: "Hotel" },
+        { label: "Resort", value: "Resort" },
+        { label: "Apartment", value: "Apartment" },
+        { label: "House Boat", value: "House Boat" },
+      ],
+    },
+    {
+      title: "Review score",
+      key: "review",
+      options: [
+        {
+          label: "Excellent: 9+",
+          value: "excellent",
+          icon: <ThumbsUp className="h-4 w-4 mr-2" />,
+        },
+        {
+          label: "Very Good: 8+",
+          value: "veryGood",
+          icon: <ThumbsUp className="h-4 w-4 mr-2" />,
+        },
+      ],
+    },
+  ];
+
+  // --------------------------
+  // Render Stars
+  // --------------------------
+  const renderStars = (rating: number) =>
+    Array.from({ length: 5 }).map((_, i) => (
       <Star
         key={i}
         className={`h-4 w-4 ${
@@ -61,19 +164,43 @@ const SearchPage = () => {
         }`}
       />
     ));
-  };
 
+  // --------------------------
+  // Render
+  // --------------------------
   return (
     <div className="bg-gray-50">
-      <MobileFilter />
+      {/* Mobile Filter (Drawer) */}
+      <div className="lg:hidden p-4">
+        <Drawer open={mobileOpen} onOpenChange={setMobileOpen}>
+          <DrawerTrigger asChild>
+            <Button variant="outline" className="">
+              Filters
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Filters By</DrawerTitle>
+            </DrawerHeader>
+            <div className="p-4">
+              <SearchFilter
+                sections={filterSections}
+                onAfterChange={() => setMobileOpen(false)}
+              />
+            </div>
+          </DrawerContent>
+        </Drawer>
+      </div>
+
       <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto p-6">
-        {/* Sidebar Filters */}
-        <div className="hidden lg:block lg:w-1/4 h-full space-y-8 border border-gray-200 bg-white p-6 rounded-xl shadow-md">
-          <h3 className="text-lg font-semibold mb-4">Filters</h3>
-          <Button className="w-full bg-blue-600 hover:bg-blue-700">
-            Show all
-          </Button>
-        </div>
+        {/* Desktop Sidebar Filter */}
+        <aside className="hidden lg:block lg:w-1/4 h-full space-y-8 border border-gray-200 bg-white p-6 rounded-xl shadow-md">
+          <h3 className="text-lg font-semibold mb-4">Filter by:</h3>
+          <SearchFilter
+            sections={filterSections}
+            onAfterChange={() => setMobileOpen(false)}
+          />{" "}
+        </aside>
 
         {/* Hotels List */}
         <div className="lg:w-3/4 min-h-screen space-y-6">
@@ -159,7 +286,6 @@ const SearchPage = () => {
                             "start"
                           )}/${searchParams.get("end")}`}
                         >
-                          {" "}
                           <Button className="mt-2 bg-blue-600 hover:bg-blue-700">
                             See availability
                           </Button>

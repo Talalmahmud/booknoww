@@ -1,4 +1,4 @@
-import HotelSearchPage from "@/components/shared/search";
+import SearchPage from "@/components/shared/search";
 import SearchBar from "@/components/shared/searchbar";
 import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
@@ -22,7 +22,7 @@ export default function Page() {
         <Suspense fallback={<SearchBarFallback />}>
           <SearchBar />
 
-          <HotelSearchPage />
+          <SearchPage />
         </Suspense>
       </nav>
     </>
