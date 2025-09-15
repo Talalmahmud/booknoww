@@ -13,7 +13,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Property } from "@/app/type";
 import Link from "next/link";
 import api from "@/lib/axios";
@@ -45,12 +45,6 @@ export type FilterSection =
       title: string;
       key: string;
       type?: "checkbox";
-      options: FilterOption[];
-    }
-  | {
-      title: string;
-      key: string;
-      type?: "radio";
       options: FilterOption[];
     };
 
@@ -128,16 +122,7 @@ const SearchPage = () => {
       key: "facilities",
       options: searchFacilities,
     },
-    {
-      title: "Stay Types",
-      key: "propertyType",
-      type: "radio",
-      options: [
-        { label: "Hotel", value: "hotel" },
-        { label: "Apartment", value: "apartment" },
-        { label: "Resort", value: "resort" },
-      ],
-    },
+
     {
       title: "Review score",
       key: "review",

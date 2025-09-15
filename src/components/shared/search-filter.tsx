@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Button } from "@/components/ui/button";
 
 export type FilterOption = {
   label: string;
@@ -23,13 +23,7 @@ export type FilterSection =
   | {
       title: string;
       key: string;
-      type: "checkbox";
-      options: FilterOption[];
-    }
-  | {
-      title: string;
-      key: string;
-      type: "radio";
+      type?: "checkbox";
       options: FilterOption[];
     };
 
@@ -44,11 +38,7 @@ export function SearchFilter({ sections, onAfterChange }: FilterProps) {
 
   const getActiveValues = (key: string) => {
     const value = searchParams.get(key);
-    return value ? value.split(',') : [];
-  };
-
-  const getActiveValue = (key: string) => {
-    return searchParams.get(key);
+    return value ? value.split(",") : [];
   };
 
   const getActiveRange = (key: string) => {
@@ -64,27 +54,14 @@ export function SearchFilter({ sections, onAfterChange }: FilterProps) {
       // Remove the label
       const updatedValues = currentValues.filter((v) => v !== label);
       if (updatedValues.length > 0) {
-        params.set(key, updatedValues.join(','));
+        params.set(key, updatedValues.join(","));
       } else {
         params.delete(key);
       }
     } else {
       // Add the label
       const updatedValues = [...currentValues, label];
-      params.set(key, updatedValues.join(','));
-    }
-
-    router.push(`?${params.toString()}`);
-    onAfterChange?.();
-  };
-
-  const handleRadioChange = (key: string, label: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (label) {
-      params.set(key, label);
-    } else {
-      params.delete(key);
+      params.set(key, updatedValues.join(","));
     }
 
     router.push(`?${params.toString()}`);
@@ -102,6 +79,10 @@ export function SearchFilter({ sections, onAfterChange }: FilterProps) {
 
     router.push(`?${params.toString()}`);
     onAfterChange?.();
+  };
+
+  const handleSearch = () => {
+    onAfterChange?.(); // Close the drawer on mobile
   };
 
   return (
@@ -127,31 +108,6 @@ export function SearchFilter({ sections, onAfterChange }: FilterProps) {
                 <span>{activeValue || section.min}</span>
                 <span>{section.max}</span>
               </div>
-            </div>
-          );
-        } else if (section.type === "radio") {
-          const activeValue = getActiveValue(section.key);
-
-          return (
-            <div key={section.key}>
-              <h4 className="font-medium mb-2">{section.title}</h4>
-              <RadioGroup
-                value={activeValue || ""}
-                onValueChange={(value) => handleRadioChange(section.key, value)}
-              >
-                <div className="flex flex-col gap-2">
-                  {section.options.map((opt) => (
-                    <label
-                      key={opt.value}
-                      className="flex items-center gap-2 cursor-pointer"
-                    >
-                      <RadioGroupItem value={opt.label} />
-                      <span>{opt.label}</span>
-                      {opt.icon && <span>{opt.icon}</span>}
-                    </label>
-                  ))}
-                </div>
-              </RadioGroup>
             </div>
           );
         } else {
@@ -182,6 +138,13 @@ export function SearchFilter({ sections, onAfterChange }: FilterProps) {
           );
         }
       })}
+
+      {/* Mobile Search Button */}
+      <div className="block md:hidden mt-4">
+        <Button className="w-full" size="lg" onClick={handleSearch}>
+          Search
+        </Button>
+      </div>
     </div>
   );
 }
