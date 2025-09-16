@@ -62,7 +62,7 @@ export default function SearchBar() {
           {/* Search Input */}
           {toggle ? (
             <div className="rounded-full px-2 bg-slate-700 h-12 w-full sm:w-min mx-auto hidden md:flex justify-start sm:justify-between gap-2 items-center overflow-x-auto scrollbar-hide">
-              {["Hotel", "Resort", "Apartment", "House Boat"].map((item) => (
+              {["Hotel", "Resort", "Apartment"].map((item) => (
                 <button
                   key={item}
                   className={cn(

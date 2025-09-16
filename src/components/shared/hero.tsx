@@ -50,7 +50,7 @@ const Hero = () => {
         <div className="absolute flex flex-col pb-6 -bottom-28 bg-white w-full sm:w-[95%] md:w-[90%] lg:w-[85%] xl:w-[80%] max-w-6xl h-auto rounded-2xl shadow-xl mx-auto p-4 sm:p-6">
           {/* Tabs */}
           <div className="rounded-full px-2 -mt-12 bg-slate-700 h-12 w-full sm:w-min mx-auto flex justify-between gap-2 items-center overflow-x-auto scrollbar-hide">
-            {["Hotel", "Resort", "Apartment", "House Boat"].map((item) => (
+            {["Hotel", "Resort", "Apartment"].map((item) => (
               <button
                 key={item}
                 className={cn(

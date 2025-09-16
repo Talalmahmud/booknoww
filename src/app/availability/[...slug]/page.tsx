@@ -92,7 +92,7 @@ const HotelDetailsPage = async ({
   );
   const property = await res.json();
   const hotel: Hotel = property.data;
-  console.log(hotel.roomTypes[0].roomAvailability);
+  // console.log(hotel.roomTypes[0].roomAvailability);
   return (
     <div className="min-h-screen bg-blue-100">
       <Header />
@@ -137,22 +137,24 @@ const HotelDetailsPage = async ({
           {/* Left: Description + Rooms */}
           <div className="lg:col-span-2 space-y-8">
             {/* About Section */}
-            <div>
+            {/* <div>
               <h2 className="text-2xl font-semibold mb-3">
                 About this {hotel.propertyType.name}
               </h2>
               <p className="text-gray-700">{hotel.descriptions}</p>
-            </div>
+            </div> */}
 
             {/* Room Types */}
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Available Rooms</h2>
-              <div className="space-y-6">
-                {hotel.roomTypes.map((room) => (
-                  <RoomCard key={room.id}  room={room} />
-                ))}
+            {hotel.roomTypes.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-semibold mb-4">Available Rooms</h2>
+                <div className="space-y-6">
+                  {hotel.roomTypes.map((room) => (
+                    <RoomCard key={room.id} room={room} />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Reviews */}
             <div>
