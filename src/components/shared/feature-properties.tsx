@@ -52,7 +52,6 @@ const FeaturedProperties = () => {
     { id: "Hotel", name: "Hotel", icon: "🏨" },
     { id: "Resort", name: "Resort", icon: "🏖️" },
     { id: "Apartment", name: "Apartment", icon: "🏢" },
-    { id: "House Boat", name: "House Boat", icon: "🏢" },
   ];
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
