@@ -21,7 +21,6 @@ export const metadata: Metadata = {
     "Discover the easiest way to book Hotels, Resorts , Apartment and experiences worldwide. Best prices guaranteed, 24/7 customer support, and seamless booking experience.",
   keywords:
     "booking, hotels, resorts, apartment, flights, travel, reservations, vacation, trips",
-
   openGraph: {
     title: "BookNoww - Your Premier Booking Platform",
     description:
@@ -30,7 +29,7 @@ export const metadata: Metadata = {
     siteName: "BookNoww",
     images: [
       {
-        url: "https://booknoww-beige.vercel.app/logo.png",
+        url: "https://booknoww-beige.vercel.app/og-image.png",
         width: 1200,
         height: 630,
         alt: "BookNoww - Your Premier Booking Platform",
@@ -39,13 +38,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "BookNoww - Your Premier Booking Platform",
     description:
       "Discover the easiest way to book Hotels, Resorts , Apartment and experiences worldwide.",
-    images: ["https://booknoww-beige.vercel.app/logo.png"],
+    images: ["https://booknoww-beige.vercel.app/og-image.png"],
   },
 };
 
