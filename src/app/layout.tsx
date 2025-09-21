@@ -22,7 +22,6 @@ export const metadata: Metadata = {
   keywords:
     "booking, hotels, resorts, apartment, flights, travel, reservations, vacation, trips",
 
-  // Open Graph Metadata
   openGraph: {
     title: "BookNoww - Your Premier Booking Platform",
     description:
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "BookNoww",
     images: [
       {
-        url: "https://booknoww-beige.vercel.app/logo.png", // Replace with your actual OG image path
+        url: "https://booknoww-beige.vercel.app/logo.png",
         width: 1200,
         height: 630,
         alt: "BookNoww - Your Premier Booking Platform",
@@ -41,9 +40,13 @@ export const metadata: Metadata = {
     type: "website",
   },
 
-  // Twitter Card Metadata
-
-  // Additional Metadata
+  twitter: {
+    card: "summary_large_image",
+    title: "BookNoww - Your Premier Booking Platform",
+    description:
+      "Discover the easiest way to book Hotels, Resorts , Apartment and experiences worldwide.",
+    images: ["https://booknoww-beige.vercel.app/logo.png"],
+  },
 };
 
 export default function RootLayout({
