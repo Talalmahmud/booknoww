@@ -85,47 +85,28 @@ const FeaturedProperties = () => {
             </h2>
 
             {/* Guarantees */}
-            <div className="flex flex-wrap gap-4">
-              <div className="flex items-center bg-blue-50 rounded-lg px-3 py-2">
-                <Shield className="h-4 w-4 text-blue-600 mr-2" />
-                <span className="text-sm font-medium text-blue-700">
-                  We Price Match
-                </span>
-              </div>
-              <div className="flex items-center bg-green-50 rounded-lg px-3 py-2">
-                <BadgeCheck className="h-4 w-4 text-green-600 mr-2" />
-                <span className="text-sm font-medium text-green-700">
-                  Hotel Booking Guarantee
-                </span>
-              </div>
-              <div className="flex items-center bg-purple-50 rounded-lg px-3 py-2">
-                <BadgeCheck className="h-4 w-4 text-purple-600 mr-2" />
-                <span className="text-sm font-medium text-purple-700">
-                  Hotel Stay Guarantee
-                </span>
-              </div>
+
+            <div className="flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() =>
+                    setActiveCategory(category.id as PropertyCategory)
+                  }
+                  className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    activeCategory === category.id
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  <span className="mr-2">{category.icon}</span>
+                  {category.name}
+                </button>
+              ))}
             </div>
           </div>
 
           {/* Category Filter */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() =>
-                  setActiveCategory(category.id as PropertyCategory)
-                }
-                className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  activeCategory === category.id
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                <span className="mr-2">{category.icon}</span>
-                {category.name}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Properties Grid */}

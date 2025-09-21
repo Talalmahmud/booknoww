@@ -3,7 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+  Shield,
+  BadgeCheck,
+} from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -90,10 +96,25 @@ const WeeklyDeals = () => {
   return (
     <div className="w-full max-w-[1160px] mx-auto mt-[100px] px-4 py-8">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-0">
-          Weekly Deal: New offers every Tues-Fri
-        </h2>
+      <div className="flex items-center justify-center flex-wrap gap-4 pb-4">
+        <div className="flex items-center bg-blue-50 rounded-lg px-3 py-2">
+          <Shield className="h-4 w-4 text-blue-600 mr-2" />
+          <span className="text-sm font-medium text-blue-700">
+            We Price Match
+          </span>
+        </div>
+        <div className="flex items-center bg-green-50 rounded-lg px-3 py-2">
+          <BadgeCheck className="h-4 w-4 text-green-600 mr-2" />
+          <span className="text-sm font-medium text-green-700">
+            Booking Guarantee
+          </span>
+        </div>
+        <div className="flex items-center bg-purple-50 rounded-lg px-3 py-2">
+          <BadgeCheck className="h-4 w-4 text-purple-600 mr-2" />
+          <span className="text-sm font-medium text-purple-700">
+            Stay Guarantee
+          </span>
+        </div>
       </div>
 
       {/* Carousel Container */}

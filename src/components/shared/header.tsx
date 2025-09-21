@@ -1,6 +1,7 @@
 import React from "react";
 import LoginPopover from "./login";
 import Link from "next/link";
+import { CardSim } from "lucide-react";
 
 const Header = () => {
   return (
@@ -10,7 +11,18 @@ const Header = () => {
         <Link href={"/"} className=" text-[20px] font-semibold">
           BookNoww
         </Link>
-        <LoginPopover />
+        <div className=" flex items-center gap-2">
+          <div className=" flex items-center gap-1">
+            <CardSim color="orange" className=" h-6 w-6 animate-bounce" />
+            <Link
+              href={"/e-sim"}
+              className=" hover:underline text-[14px] font-sans font-bold"
+            >
+              E-Sim
+            </Link>
+          </div>
+          <LoginPopover />
+        </div>
       </div>
     </div>
   );
