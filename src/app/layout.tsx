@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "BookNoww",
     images: [
       {
-        url: "/logo.png", // Replace with your actual OG image path
+        url: "https://booknoww-beige.vercel.app/logo.png", // Replace with your actual OG image path
         width: 1200,
         height: 630,
         alt: "BookNoww - Your Premier Booking Platform",
