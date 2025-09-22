@@ -19,8 +19,10 @@ type RoomType = {
 };
 
 const RoomCard = ({ room }: { room: RoomType }) => {
+  console.log(room);
   const firstAvailability = room.roomAvailability[0];
-  const totalRoom = room.roomAvailability[0].rooms;
+  const totalRoom =
+    room.roomAvailability.length > 0 ? room.roomAvailability[0].rooms : 0;
 
   const [selectedMeal, setSelectedMeal] = useState<{
     id: string;
@@ -69,8 +71,13 @@ const RoomCard = ({ room }: { room: RoomType }) => {
 
       <div className="flex-1 space-y-3">
         <div>
+          <p className=" font-bold text-[16px] text-red-600">
+            {totalRoom > 0
+              ? `Hurry up ${totalRoom} rooms are available!`
+              : "No rooms are available!"}
+          </p>
+
           <h3 className="text-lg font-bold">{room.title}</h3>
-          <p className="text-gray-600">{room.description}</p>
         </div>
 
         {/* Room Facilities */}
@@ -95,7 +102,7 @@ const RoomCard = ({ room }: { room: RoomType }) => {
         </div>
 
         {/* Meal Options */}
-        {firstAvailability && (
+        {totalRoom > 0 && firstAvailability && (
           <div>
             <p className="font-semibold mb-1">Meal Options</p>
             <div className="space-y-2">
