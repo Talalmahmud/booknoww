@@ -128,37 +128,41 @@ const RoomCard = ({ room }: { room: RoomType }) => {
         )}
 
         {/* Room Selector */}
-        <div className="flex items-center gap-3">
-          <p className="font-semibold">Select Rooms:</p>
-          <Button
-            onClick={() => setRoomCount((prev) => Math.max(1, prev - 1))}
-            className=" bg-orange-800 rounded-full h-6 w-6 cursor-pointer"
-          >
-            <MinusCircle className=" min-h-4 min-w-4" />
-          </Button>
-          <span className="px-3">{roomCount}</span>
-          <Button
-            onClick={() =>
-              setRoomCount((prev) => Math.min(totalRoom, prev + 1))
-            }
-            className=" bg-orange-800 rounded-full h-6 w-6 cursor-pointer "
-          >
-            <PlusCircle className=" min-h-4 min-w-4" />
-          </Button>
-        </div>
+        {totalRoom > 0 && (
+          <div className="flex items-center gap-3">
+            <p className="font-semibold">Select Rooms:</p>
+            <Button
+              onClick={() => setRoomCount((prev) => Math.max(1, prev - 1))}
+              className=" bg-orange-800 rounded-full h-6 w-6 cursor-pointer"
+            >
+              <MinusCircle className=" min-h-4 min-w-4" />
+            </Button>
+            <span className="px-3">{roomCount}</span>
+            <Button
+              onClick={() =>
+                setRoomCount((prev) => Math.min(totalRoom, prev + 1))
+              }
+              className=" bg-orange-800 rounded-full h-6 w-6 cursor-pointer "
+            >
+              <PlusCircle className=" min-h-4 min-w-4" />
+            </Button>
+          </div>
+        )}
 
         {/* Price */}
-        <div className="flex justify-between items-center pt-2 border-t">
-          <p className="text-lg font-bold text-green-600">
-            BDT {selectedMeal.price * roomCount}
-          </p>
-          <button
-            onClick={handleBookNow}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-          >
-            Book Now
-          </button>
-        </div>
+        {totalRoom > 0 && (
+          <div className="flex justify-between items-center pt-2 border-t">
+            <p className="text-lg font-bold text-green-600">
+              BDT {selectedMeal.price * roomCount}
+            </p>
+            <button
+              onClick={handleBookNow}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            >
+              Book Now
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
