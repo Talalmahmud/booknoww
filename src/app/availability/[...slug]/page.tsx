@@ -3,6 +3,18 @@ import Header from "@/components/shared/header";
 import PropertyGallery from "@/components/shared/property-image-gellary";
 import Image from "next/image";
 import RoomCard from "@/components/shared/room-card";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import MessagePopup from "@/components/shared/message-popup";
 
 // ----------------- Types -----------------
 type FacilityIcon = {
@@ -276,19 +288,16 @@ const HotelDetailsPage = async ({
             </div>
           ) : (
             <div className="hidden lg:block">
-              <div className="sticky top-20 bg-white p-6 rounded-lg shadow-lg">
+              <div className="sticky top-20 flex flex-col justify-center items-center bg-white p-6 rounded-lg shadow-lg">
                 <h2 className="text-xl font-bold mb-3">Book Your Stay</h2>
-                <p className="text-gray-600 mb-2 text-xl">
+                <p className="text-gray-600 mb-2 text-[16px]">
                   <span className="font-bold">
                     {hotel.price - hotel.discount}
                   </span>{" "}
                   <span className="font-bold line-through"> {hotel.price}</span>
                   BDT / per night
                 </p>
-
-                <button className="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700">
-                  Send Request
-                </button>
+                <MessagePopup />
               </div>
             </div>
           )}
