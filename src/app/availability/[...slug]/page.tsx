@@ -240,31 +240,33 @@ const HotelDetailsPage = async ({
             ></iframe>
 
             {/* Reviews */}
-            <div>
-              <h2 className="text-2xl font-semibold mb-3">Reviews</h2>
-              <div className="space-y-4">
-                {hotel.reviews.map((review) => (
-                  <div
-                    key={review.id}
-                    className="bg-white p-3 rounded shadow-sm"
-                  >
-                    <div className="flex items-center gap-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-4 w-4 ${
-                            i < review.rating
-                              ? "text-yellow-400 fill-current"
-                              : "text-gray-300"
-                          }`}
-                        />
-                      ))}
-                      <span className="text-gray-600">{review.comments}</span>
+            {hotel.reviews.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-semibold mb-3">Reviews</h2>
+                <div className="space-y-4">
+                  {hotel.reviews.map((review) => (
+                    <div
+                      key={review.id}
+                      className="bg-white p-3 rounded shadow-sm"
+                    >
+                      <div className="flex items-center gap-2">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`h-4 w-4 ${
+                              i < review.rating
+                                ? "text-yellow-400 fill-current"
+                                : "text-gray-300"
+                            }`}
+                          />
+                        ))}
+                        <span className="text-gray-600">{review.comments}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Right: Sticky Booking Card */}
