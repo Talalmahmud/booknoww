@@ -165,32 +165,6 @@ const HotelDetailsPage = async ({
               </div>
             )}
 
-            {/* Reviews */}
-            <div>
-              <h2 className="text-2xl font-semibold mb-3">Reviews</h2>
-              <div className="space-y-4">
-                {hotel.reviews.map((review) => (
-                  <div
-                    key={review.id}
-                    className="bg-white p-3 rounded shadow-sm"
-                  >
-                    <div className="flex items-center gap-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-4 w-4 ${
-                            i < review.rating
-                              ? "text-yellow-400 fill-current"
-                              : "text-gray-300"
-                          }`}
-                        />
-                      ))}
-                      <span className="text-gray-600">{review.comments}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
             {/* Facilities */}
             <div>
               <h2 className="text-2xl font-semibold mb-3">Facilities</h2>
@@ -252,25 +226,72 @@ const HotelDetailsPage = async ({
               height="450"
               loading="lazy"
             ></iframe>
+
+            {/* Reviews */}
+            <div>
+              <h2 className="text-2xl font-semibold mb-3">Reviews</h2>
+              <div className="space-y-4">
+                {hotel.reviews.map((review) => (
+                  <div
+                    key={review.id}
+                    className="bg-white p-3 rounded shadow-sm"
+                  >
+                    <div className="flex items-center gap-2">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-4 w-4 ${
+                            i < review.rating
+                              ? "text-yellow-400 fill-current"
+                              : "text-gray-300"
+                          }`}
+                        />
+                      ))}
+                      <span className="text-gray-600">{review.comments}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Right: Sticky Booking Card */}
-          <div className="hidden lg:block">
-            <div className="sticky top-20 bg-white p-6 rounded-lg shadow-lg">
-              <h2 className="text-xl font-bold mb-3">Book Your Stay</h2>
-              <p className="text-gray-600 mb-2">
-                Starting from <span className="font-bold">${hotel.price}</span>
-              </p>
-              {hotel.discount > 0 && (
-                <p className="text-sm text-red-500 mb-4">
-                  Save ${hotel.discount} today!
+          {hotel.propertyType.name !== "Apartment" ? (
+            <div className="hidden lg:block">
+              <div className="sticky top-20 bg-white p-6 rounded-lg shadow-lg">
+                <h2 className="text-xl font-bold mb-3">Book Your Stay</h2>
+                <p className="text-gray-600 mb-2">
+                  Starting from{" "}
+                  <span className="font-bold">${hotel.price}</span>
                 </p>
-              )}
-              <button className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700">
-                Reserve Now
-              </button>
+                {hotel.discount > 0 && (
+                  <p className="text-sm text-red-500 mb-4">
+                    Save ${hotel.discount} today!
+                  </p>
+                )}
+                <button className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700">
+                  Reserve Now
+                </button>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="hidden lg:block">
+              <div className="sticky top-20 bg-white p-6 rounded-lg shadow-lg">
+                <h2 className="text-xl font-bold mb-3">Book Your Stay</h2>
+                <p className="text-gray-600 mb-2 text-xl">
+                  <span className="font-bold">
+                    {hotel.price - hotel.discount}
+                  </span>{" "}
+                  <span className="font-bold line-through"> {hotel.price}</span>
+                  BDT / per night
+                </p>
+
+                <button className="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700">
+                  Send Request
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
