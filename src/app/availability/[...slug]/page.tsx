@@ -74,6 +74,14 @@ type Hotel = {
   district: District;
   country: Country;
   propertyType: PropertyType;
+  checkIn: string;
+  checkOut: string;
+  childPolicies: string;
+  cancellationPolicies: {
+    title: string;
+    hours: number;
+    percentage: number;
+  }[];
 };
 
 // ----------------- Component -----------------
@@ -93,6 +101,7 @@ const HotelDetailsPage = async ({
   const property = await res.json();
   const hotel: Hotel = property.data;
   // console.log(hotel.roomTypes[0].roomAvailability);
+  console.log(hotel.cancellationPolicies);
   return (
     <div className="min-h-screen bg-blue-100">
       <Header />
@@ -201,6 +210,40 @@ const HotelDetailsPage = async ({
                   </div>
                 ))}
               </div>
+            </div>
+
+            <div className=" bg-white py-2 px-1">
+              <p className=" text-xl font-bold pb-2">Know Before You Go</p>
+              <p className=" text-[14px] font-bold">
+                Check-In: <span className=" font-normal">{hotel.checkIn}</span>
+              </p>
+              <p className=" text-[14px] font-bold">
+                Check-Out:{" "}
+                <span className=" font-normal">{hotel.checkOut}</span>
+              </p>
+            </div>
+            <div className=" bg-white py-2 px-1">
+              <p className=" text-xl font-bold pb-1">Cancelletion Policies:</p>
+              {hotel.cancellationPolicies?.map((item, index) => (
+                <div
+                  key={index}
+                  className=" font-semibold flex items-center gap-1"
+                >
+                  <span>{item?.title} : </span>
+                  <span className=" text-red-700">
+                    {" "}
+                    Return {item.percentage}%
+                  </span>{" "}
+                  <span className=" text-green-800">
+                    {" "}
+                    before {item.hours} hours
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className=" bg-white py-2 px-1">
+              <p className=" text-xl font-bold pb-2">Child Policies:</p>
+              <p className=" text-[16px]">{hotel.childPolicies}</p>
             </div>
 
             <iframe
