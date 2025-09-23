@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Header from "@/components/shared/header";
+import PaymentCard from "@/components/shared/payment-card";
 
 interface CartItem {
   id: string;
@@ -295,149 +296,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Cart Summary */}
-            <div className="lg:sticky lg:top-4">
-              <Card className="shadow-lg border-0 rounded-2xl overflow-hidden h-fit">
-                <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-5">
-                  <CardTitle className="flex items-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                      />
-                    </svg>
-                    Booking Summary
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <div className="space-y-6">
-                    {cartItems.map((item) => (
-                      <div key={item.id} className="flex gap-4 pb-4 border-b">
-                        <div className="relative h-24 w-24 rounded-xl overflow-hidden flex-shrink-0 shadow-md">
-                          <Image
-                            src={item.image || "/placeholder.svg"}
-                            alt={item.name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-gray-800">
-                            {item.name}
-                          </h3>
-                          <p className="text-sm text-gray-600 mt-1">
-                            {item.description}
-                          </p>
-                          <p className="text-blue-600 font-medium mt-1">
-                            ${item.price.toFixed(2)} each
-                          </p>
-
-                          <div className="flex items-center justify-between mt-3">
-                            <div className="flex items-center gap-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="h-8 w-8 p-0 rounded-full"
-                                onClick={() =>
-                                  updateQuantity(item.id, item.quantity - 1)
-                                }
-                              >
-                                -
-                              </Button>
-                              <span className="w-8 text-center font-medium">
-                                {item.quantity}
-                              </span>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="h-8 w-8 p-0 rounded-full"
-                                onClick={() =>
-                                  updateQuantity(item.id, item.quantity + 1)
-                                }
-                              >
-                                +
-                              </Button>
-                            </div>
-
-                            <div className="font-semibold text-gray-800">
-                              ${(item.price * item.quantity).toFixed(2)}
-                            </div>
-                          </div>
-                        </div>
-
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeItem(item.id)}
-                          className="text-red-500 hover:text-red-600 hover:bg-red-100 h-8 w-8 p-0 rounded-full"
-                        >
-                          ×
-                        </Button>
-                      </div>
-                    ))}
-
-                    <Separator />
-
-                    <div className="space-y-3">
-                      <div className="flex justify-between text-gray-700">
-                        <span>Subtotal</span>
-                        <span>${subtotal.toFixed(2)}</span>
-                      </div>
-
-                      <div className="flex justify-between text-gray-700">
-                        <span>Tax (12%)</span>
-                        <span>${tax.toFixed(2)}</span>
-                      </div>
-
-                      <div className="flex justify-between text-gray-700">
-                        <span>Service Fee</span>
-                        <span>${serviceFee.toFixed(2)}</span>
-                      </div>
-
-                      <Separator />
-
-                      <div className="flex justify-between font-bold text-lg pt-2 text-gray-900">
-                        <span>Total</span>
-                        <span>${total.toFixed(2)}</span>
-                      </div>
-                    </div>
-
-                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 mt-4">
-                      <div className="flex items-start gap-3">
-                        <div className="bg-blue-100 p-2 rounded-full">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 text-blue-600"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                          </svg>
-                        </div>
-                        <p className="text-sm text-blue-700">
-                          Free cancellation up to 24 hours before check-in. No
-                          hidden fees.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <PaymentCard />
           </div>
         </div>
       </div>

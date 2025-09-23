@@ -12,7 +12,10 @@ import { format } from "date-fns";
 
 const Hero = () => {
   const [activeItem, setActiveItem] = useState("Hotel");
-  const [dateRange, setDateRange] = useState<DateRange | undefined>();
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: new Date(new Date().setDate(new Date().getDate() + 1)),
+  });
   const [location, setLocation] = useState<{
     type: string;
     name: string;

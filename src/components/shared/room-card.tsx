@@ -190,7 +190,7 @@ const RoomCard = ({
         {totalRoom > 0 && (
           <div className="flex justify-between items-center pt-2 border-t">
             <p className="text-lg font-bold text-green-600">
-              BDT {selectedMeal.price * roomCount}
+              BDT {selectedMeal.price}
             </p>
             <button
               onClick={handleBookNow}

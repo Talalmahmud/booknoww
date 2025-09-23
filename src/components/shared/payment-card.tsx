@@ -4,7 +4,7 @@ import { Trash2 } from "lucide-react";
 import { useCart } from "../card-provider";
 import Link from "next/link";
 
-const CartItems = () => {
+const PaymentCard = () => {
   const { cart, removeBooking } = useCart();
 
   if (cart.length === 0) {
@@ -74,15 +74,12 @@ const CartItems = () => {
 
       {/* ✅ Checkout button */}
       <div className=" w-full ">
-        <Link
-          href={"/checkout"}
-          className="min-w-full bg-green-600 text-white p-2  rounded-lg font-semibold hover:bg-green-700 transition"
-        >
-          Proceed to Checkout
-        </Link>
+        <button className="min-w-full bg-green-600 text-white p-2  rounded-lg font-semibold hover:bg-green-700 transition">
+          Checkout
+        </button>
       </div>
     </div>
   );
 };
 
-export default CartItems;
+export default PaymentCard;
