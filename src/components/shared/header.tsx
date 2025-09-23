@@ -3,6 +3,7 @@ import LoginPopover from "./login";
 import Link from "next/link";
 import { CardSim } from "lucide-react";
 
+
 const Header = () => {
   return (
     <div className="  py-2 sticky top-0 bg-white px-4 shadow-md z-50">

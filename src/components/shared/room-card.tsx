@@ -6,20 +6,56 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import { storeBooking } from "@/services/cart";
+import { useCart } from "../card-provider";
 
-type RoomType = {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  thumbImg: string;
-  roomImages: string[];
-  facilities: Facility[];
-  roomAvailability: RoomAvailability[];
+type Props = {
+  propertyId?: string;
+  child?: number;
+  adult?: number;
+  guest?: number;
+  checkIn?: string;
+  checkOut?: string;
+  room: {
+    id: string;
+    title: string;
+    description: string;
+    price: number;
+    thumbImg: string;
+    roomImages: string[];
+    facilities: Facility[];
+    roomAvailability: RoomAvailability[];
+  };
 };
 
-const RoomCard = ({ room }: { room: RoomType }) => {
+type BookingItem = {
+  propertyId: string;
+  roomTypeId: string;
+  roomAvailabilityId: string;
+  mealOptionId: string;
+  checkIn: string;
+  checkOut: string;
+  adult: number;
+  child: number;
+  guest: number;
+  roomQuantity: number;
+  mealPrice: number;
+  totalPrice: number;
+  title: string;
+  thumbImg: string;
+};
+
+const RoomCard = ({
+  room,
+  propertyId,
+  adult,
+  checkIn,
+  checkOut,
+  child,
+  guest,
+}: Props) => {
   console.log(room);
+  const { addBooking } = useCart(); // ✅ get addBooking from context
+
   const firstAvailability = room.roomAvailability[0];
   const totalRoom =
     room.roomAvailability.length > 0 ? room.roomAvailability[0].rooms : 0;
@@ -38,38 +74,39 @@ const RoomCard = ({ room }: { room: RoomType }) => {
   const [roomCount, setRoomCount] = useState(1);
 
   // handle book now
+  // handle book now
+
+  // ✅ handle book now using context
   const handleBookNow = () => {
-    const bookingItem = {
-      roomId: room.id,
-      title: room.title,
-      mealId: selectedMeal.id,
+    addBooking({
+      propertyId: propertyId || "",
+      roomTypeId: room.id,
+      roomAvailabilityId: firstAvailability?.id || "",
+      mealOptionId: selectedMeal.id,
+      checkIn: checkIn || "",
+      checkOut: checkOut || "",
+      adult: adult || 0,
+      child: child || 0,
+      guest: guest || 0,
+      roomQuantity: roomCount,
       mealPrice: selectedMeal.price,
-      roomCount,
       totalPrice: selectedMeal.price * roomCount,
+      title: room.title,
       thumbImg: room.thumbImg,
-    };
-
-    // Get old cart
-    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-    // Add new item
-    const updatedCart = [...existingCart, bookingItem];
-
-    // Save to localStorage
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    });
 
     alert("Room added to cart ✅");
   };
 
-  useEffect(() => {
-    storeBooking("hotel", room.id, "2025-09-20", "2025-09-25", roomCount);
-  }, [roomCount]);
+  // useEffect(() => {
+  //   storeBooking("hotel", room.id, "2025-09-20", "2025-09-25", roomCount);
+  // }, [roomCount]);
 
   return (
     <div className="bg-white p-4 rounded-lg shadow flex flex-col md:flex-row gap-4">
       <RoomGallary images={[room.thumbImg, ...room.roomImages]} />
 
-      <div className="flex-1 space-y-3">
+      <div className="flex-1 space-y-3 min-w-1/2 ">
         <div>
           <p className=" font-bold text-[16px] text-red-600">
             {totalRoom > 0
@@ -87,13 +124,13 @@ const RoomCard = ({ room }: { room: RoomType }) => {
             {room.facilities.map((f) => (
               <div
                 key={f.id}
-                className="flex items-center gap-1 text-sm text-gray-600"
+                className="flex items-center gap-1 text-[12px] text-gray-600"
               >
                 <Image
                   src={f.facilityIcon.iconUrl}
                   alt={f.facilityIcon.title}
-                  height={16}
-                  width={16}
+                  height={14}
+                  width={14}
                 />
                 <span>{f.facilityIcon.title}</span>
               </div>
@@ -109,7 +146,7 @@ const RoomCard = ({ room }: { room: RoomType }) => {
               {firstAvailability.mealOptions.map((meal) => (
                 <label
                   key={meal.id}
-                  className="flex items-center gap-2 text-sm font-bold text-gray-700"
+                  className="flex items-center gap-2 text-[13px] font-bold text-gray-700"
                 >
                   <input
                     type="radio"

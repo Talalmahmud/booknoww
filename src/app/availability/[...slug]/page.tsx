@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import MessagePopup from "@/components/shared/message-popup";
+import CartItems from "@/components/shared/cart-item";
 
 // ----------------- Types -----------------
 type FacilityIcon = {
@@ -69,7 +70,7 @@ type District = { id: string; name: string };
 type Country = { id: string; name: string };
 type PropertyType = { id: string; name: string };
 
-type Hotel = {
+export type Hotel = {
   id: string;
   title: string;
   descriptions: string;
@@ -171,7 +172,16 @@ const HotelDetailsPage = async ({
                 <h2 className="text-2xl font-semibold mb-4">Available Rooms</h2>
                 <div className="space-y-6">
                   {hotel.roomTypes.map((room) => (
-                    <RoomCard key={room.id} room={room} />
+                    <RoomCard
+                      child={Number(slug[3]) || 0}
+                      adult={Number(slug[3]) || 0}
+                      guest={Number(slug[3]) || 0}
+                      checkIn={slug[1]}
+                      checkOut={slug[2]}
+                      propertyId={hotel.id}
+                      key={room.id}
+                      room={room}
+                    />
                   ))}
                 </div>
               </div>
@@ -273,19 +283,10 @@ const HotelDetailsPage = async ({
           {hotel.propertyType.name !== "Apartment" ? (
             <div className="hidden lg:block">
               <div className="sticky top-20 bg-white p-6 rounded-lg shadow-lg">
-                <h2 className="text-xl font-bold mb-3">Book Your Stay</h2>
-                <p className="text-gray-600 mb-2">
-                  Starting from{" "}
-                  <span className="font-bold">${hotel.price}</span>
-                </p>
-                {hotel.discount > 0 && (
-                  <p className="text-sm text-red-500 mb-4">
-                    Save ${hotel.discount} today!
-                  </p>
-                )}
-                <button className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700">
-                  Reserve Now
-                </button>
+                <h2 className="text-xl font-bold mb-3">Your Cart</h2>
+
+                {/* ✅ Cart Items */}
+                <CartItems />
               </div>
             </div>
           ) : (
