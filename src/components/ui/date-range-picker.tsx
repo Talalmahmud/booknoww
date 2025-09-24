@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { format, differenceInDays } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -126,8 +126,8 @@ export function DateRangePicker({
           {/* Trigger button outside DrawerContent */}
           <div onClick={() => setOpen(true)}>{triggerBtn}</div>
 
-          <DrawerContent className="h-[100vh] p-0">
-            <DrawerHeader className="flex items-center justify-between border-b px-4 py-3">
+          <DrawerContent className="min-h-[100vh] p-0">
+            <DrawerHeader className="flex flex-row items-center justify-between border-b px-4 py-3">
               <DrawerTitle>Select Dates</DrawerTitle>
               <DrawerClose asChild>
                 <Button
@@ -135,7 +135,7 @@ export function DateRangePicker({
                   size="sm"
                   className="text-gray-500 hover:text-gray-700"
                 >
-                  Close
+                  <X />
                 </Button>
               </DrawerClose>
             </DrawerHeader>

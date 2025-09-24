@@ -20,11 +20,10 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Drawer,
   DrawerContent,
@@ -48,11 +47,9 @@ export function LocationCombobox({
   );
   const [loading, setLoading] = useState(false);
 
-  const [sheetOpen, setSheetOpen] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
-  // Detect mobile/tablet
+  const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -104,7 +101,7 @@ export function LocationCombobox({
                 value={loc.name}
                 onSelect={() => {
                   onChange(loc);
-                  isMobile ? setDrawerOpen(false) : setSheetOpen(false);
+                  setOpen(false);
                 }}
               >
                 <Icon className="mr-2 h-4 w-4 text-gray-500" />
@@ -132,7 +129,6 @@ export function LocationCombobox({
     <Button
       variant="outline"
       className="w-full h-14 justify-between rounded-lg border-gray-300"
-      onClick={() => (isMobile ? setDrawerOpen(true) : setSheetOpen(true))}
     >
       <div className="flex items-center gap-2 truncate">
         {value ? (
@@ -162,28 +158,25 @@ export function LocationCombobox({
     </Button>
   );
 
-  // Desktop → Sheet
+  // Desktop → Popover
   if (!isMobile) {
     return (
-      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetContent className="p-0 w-[400px]">
-          <SheetHeader className="p-4 border-b">
-            <SheetTitle>Select Location</SheetTitle>
-          </SheetHeader>
-          <div className="p-4">{LocationList}</div>
-        </SheetContent>
-        <div onClick={() => setSheetOpen(true)}>{TriggerButton}</div>
-      </Sheet>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>{TriggerButton}</PopoverTrigger>
+        <PopoverContent className="p-0 w-[400px]">
+          {LocationList}
+        </PopoverContent>
+      </Popover>
     );
   }
 
   // Mobile → Drawer
   return (
     <>
-      {TriggerButton}
-      <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-        <DrawerContent className="h-screen w-screen p-0 flex flex-col">
-          <DrawerHeader className="flex items-center justify-between p-4 border-b">
+      <div onClick={() => setOpen(true)}>{TriggerButton}</div>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <DrawerContent className="min-h-[100vh] w-screen p-0 flex flex-col">
+          <DrawerHeader className="flex flex-row items-center justify-between pt-1 pb-4 px-4 border-b">
             <DrawerTitle>Select Location</DrawerTitle>
             <DrawerClose asChild>
               <Button
@@ -195,7 +188,9 @@ export function LocationCombobox({
               </Button>
             </DrawerClose>
           </DrawerHeader>
-          <div className="flex-1 overflow-y-auto p-4">{LocationList}</div>
+          <div className="flex-1 h-[calc(100vh-120px)] overflow-y-auto p-4">
+            {LocationList}
+          </div>
         </DrawerContent>
       </Drawer>
     </>
