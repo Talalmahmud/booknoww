@@ -12,13 +12,14 @@ import {
   BadgeCheck,
   ChevronLeft,
   ChevronRight,
+  Loader2,
   MapPin,
   Shield,
   Star,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/axios";
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 
 // Type Definitions
 type Category = {
@@ -43,10 +44,10 @@ type PropertyCategory = "Hotel" | "resort" | "apartment" | "tour";
 
 const FeaturedProperties = () => {
   const router = useRouter();
+  const { pending } = useLinkStatus();
 
   const [activeCategory, setActiveCategory] =
     useState<PropertyCategory>("Hotel");
-  const [activeCity, setActiveCity] = useState<string>("Orlando");
 
   const categories: Category[] = [
     { id: "Hotel", name: "Hotel", icon: "🏨" },
@@ -226,9 +227,13 @@ const FeaturedProperties = () => {
                       </div>
                       <Link href={`/availability/${property.id}`}>
                         {" "}
-                        <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm">
-                          Book Now
-                        </Button>
+                        {pending ? (
+                          <Loader2 className=" animate-spin" />
+                        ) : (
+                          <Button className="bg-blue-600 hover:cursor-pointer hover:bg-blue-700 text-white text-sm">
+                            Book Now
+                          </Button>
+                        )}
                       </Link>
                     </div>
                   </div>

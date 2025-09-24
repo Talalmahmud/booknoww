@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Star, ThumbsUp } from "lucide-react";
+import { CircleQuestionMark, Star, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import {
   Pagination,
@@ -25,6 +25,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { SearchFilter } from "./search-filter";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export type FilterOption = {
   label: string;
@@ -267,7 +268,7 @@ const SearchPage = () => {
 
                     {/* Facilities */}
                     <div className="flex flex-wrap gap-4 mb-4">
-                      {hotel.facilities?.map((facility) => (
+                      {hotel.facilities?.slice(0, 3).map((facility) => (
                         <div
                           key={facility.facilityIcon?.id}
                           className="flex items-center gap-[2px] text-sm text-gray-600"
@@ -281,6 +282,29 @@ const SearchPage = () => {
                           <span>{facility.facilityIcon?.title}</span>
                         </div>
                       ))}
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <CircleQuestionMark />
+                        </TooltipTrigger>
+                        <TooltipContent className=" bg-white space-y-2 shadow-2xl">
+                          {hotel.facilities?.slice(3).map((facility) => (
+                            <div
+                              key={facility.facilityIcon?.id}
+                              className="flex items-center gap-2 text-sm text-gray-600"
+                            >
+                              <Image
+                                src={facility.facilityIcon.iconUrl}
+                                alt={facility.facilityIcon.title}
+                                height={16}
+                                width={16}
+                              />{" "}
+                              <span className=" font-semibold">
+                                {facility.facilityIcon?.title}
+                              </span>
+                            </div>
+                          ))}
+                        </TooltipContent>
+                      </Tooltip>
                     </div>
 
                     {/* Rating and Price */}
