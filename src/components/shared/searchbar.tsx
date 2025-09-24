@@ -118,27 +118,48 @@ export default function SearchBar() {
             <LoginPopover />
           </div>
         </div>
-
-        {/* Expanded Search */}
+        {/* Mobile Search Bar */}
         <div
           onClick={() => setToggle(!toggle)}
-          className="w-full whitespace-nowrap mt-4 justify-between items-center border border-gray-300 py-1.5 px-1 md:hidden flex rounded-full h-[46px] cursor-pointer hover:shadow-md transition"
+          className="w-full mt-4 md:hidden flex items-center justify-between border border-gray-300 rounded-full px-3 py-2 shadow-sm hover:shadow-md transition cursor-pointer"
         >
-          <div className="px-2 font-semibold text-[14px] truncate">
-            {" "}
-            Dhaka, Bangladesh
+          {/* Left Section */}
+          <div className="flex items-center gap-2 overflow-hidden">
+            <Search className="h-5 w-5 text-gray-500 mt-0.5" />
+
+            <div className="flex flex-col">
+              {/* Location */}
+              <span className="font-semibold text-sm text-gray-900 truncate">
+                {locationName || "Where to?"}
+              </span>
+
+              {/* Dates + Guests */}
+              <span className="text-xs text-gray-500 truncate">
+                {format(new Date(startDate || new Date()), "MMM dd")} –{" "}
+                {format(new Date(endDate || new Date()), "MMM dd")} · 2 guests
+              </span>
+            </div>
           </div>
-          <div className="h-full w-[1px] mx-1 bg-gray-200"></div>
-          <div className="flex items-center gap-2 font-semibold text-[14px] px-4 py-3">
-            <p className="text-gray-800">Aug 30 – Aug 31</p>
-            <p className="font-normal text-gray-800">· 2 nights</p>
-          </div>
-          <div className="h-full w-[1px] bg-gray-200"></div>
-          <div className="px-2">
-            <p className="text-[14px] font-semibold text-gray-800">2 guests</p>
-          </div>
-          <Button className="rounded-full h-10 w-10 flex items-center justify-center bg-blue-600 hover:bg-blue-700">
-            <Search className="text-white h-5 w-5" />
+
+          {/* Right Arrow Button */}
+          <Button
+            size="icon"
+            className="rounded-full h-8 w-8 flex items-center justify-center bg-blue-600 hover:bg-blue-700"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
           </Button>
         </div>
 
