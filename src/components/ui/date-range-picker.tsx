@@ -120,27 +120,24 @@ export function DateRangePicker({
         </Popover>
       ) : (
         // ✅ Mobile → Drawer
-        <Drawer open={open} onOpenChange={(val) => setOpen(val)}>
+        <Drawer open={open} onOpenChange={setOpen}>
+          {/* Trigger button outside DrawerContent */}
           <div onClick={() => setOpen(true)}>{triggerBtn}</div>
-          <DrawerContent
-            className="h-[100vh] p-0"
-            // disable backdrop click
-            onInteractOutside={(e) => e.preventDefault()}
-          >
-            {/* Header with Close */}
-            <div className="flex items-center justify-between border-b px-4 py-3">
-              <span className="font-semibold text-lg">Select Dates</span>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setOpen(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                Close
-              </Button>
-            </div>
 
-            {/* Calendar */}
+          <DrawerContent className="h-[100vh] p-0">
+            <DrawerHeader className="flex items-center justify-between border-b px-4 py-3">
+              <DrawerTitle>Select Dates</DrawerTitle>
+              <DrawerClose asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  Close
+                </Button>
+              </DrawerClose>
+            </DrawerHeader>
+
             <div className="flex justify-center p-4 overflow-y-auto h-[calc(100vh-120px)]">
               <Calendar
                 mode="range"
@@ -153,7 +150,6 @@ export function DateRangePicker({
               />
             </div>
 
-            {/* Footer with Submit */}
             <div className="flex items-center justify-between border-t px-4 py-3 bg-gray-50">
               {nights > 0 ? (
                 <span className="text-sm font-medium text-gray-700">
