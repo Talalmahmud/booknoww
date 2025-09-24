@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import MessagePopup from "@/components/shared/message-popup";
 import CartItems from "@/components/shared/cart-item";
+import DetailSearch from "@/components/shared/detail-search";
 
 // ----------------- Types -----------------
 type FacilityIcon = {
@@ -153,7 +154,6 @@ const HotelDetailsPage = async ({
         <div className="mb-10 p-2 bg-white rounded-md">
           <PropertyGallery images={[hotel.thumbImg, ...hotel.propertyImages]} />
         </div>
-
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left: Description + Rooms */}
@@ -169,6 +169,8 @@ const HotelDetailsPage = async ({
             {/* Room Types */}
             {hotel.roomTypes.length > 0 && (
               <div>
+                <DetailSearch />
+
                 <h2 className="text-2xl font-semibold mb-4">Available Rooms</h2>
                 <div className="space-y-6">
                   {hotel.roomTypes.map((room) => (
