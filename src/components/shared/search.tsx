@@ -165,19 +165,44 @@ const SearchPage = () => {
       <div className="lg:hidden p-4">
         <Drawer open={mobileOpen} onOpenChange={setMobileOpen}>
           <DrawerTrigger asChild>
-            <Button variant="outline" className="">
-              Filters
-            </Button>
+            <Button variant="outline">Filters</Button>
           </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
+          <DrawerContent className="h-[100vh] flex flex-col">
+            <DrawerHeader className="flex justify-between items-center border-b">
               <DrawerTitle>Filters By</DrawerTitle>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setMobileOpen(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                Close
+              </Button>
             </DrawerHeader>
-            <div className="p-4">
-              <SearchFilter
-                sections={filterSections}
-                onAfterChange={() => setMobileOpen(false)}
-              />
+
+            {/* Filters scrollable */}
+            <div className="flex-1 overflow-y-auto p-4">
+              <SearchFilter sections={filterSections} />
+            </div>
+
+            {/* Footer with actions */}
+            <div className="border-t p-4 flex justify-end gap-3 bg-gray-50">
+              <Button
+                variant="ghost"
+                onClick={() => setMobileOpen(false)}
+                className="text-gray-500"
+              >
+                Cancel
+              </Button>
+              <Button
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={() => {
+                  // You can trigger filter API call here if needed
+                  setMobileOpen(false);
+                }}
+              >
+                Apply Filters
+              </Button>
             </div>
           </DrawerContent>
         </Drawer>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Search, Bed, Plane, Globe } from "lucide-react";
+import { Search, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MainSearchBar from "./main-search-bar";
 import { cn } from "@/lib/utils";
@@ -14,38 +14,38 @@ export default function SearchBar() {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState(searchParams.get("propertyType") || "stays");
   const [toggle, setToggle] = useState(false);
-  const searchParms = useSearchParams();
-  const locationName = searchParms.get("district");
-  const startDate = searchParms.get("start");
-  const endDate = searchParms.get("end");
+
+  const locationName = searchParams.get("district");
+  const startDate = searchParams.get("start");
+  const endDate = searchParams.get("end");
+  const guests = searchParams.get("guests") || "2"; // default 2 guests
 
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  // Close when clicking outside
+  // ✅ Close when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Node;
 
-      // If click is inside wrapper → ignore
-      if (wrapperRef.current && wrapperRef.current.contains(target)) {
-        return;
-      }
-
-      // If click is inside a Radix Popover/Portal → ignore
+      if (wrapperRef.current?.contains(target)) return; // inside wrapper
       if (
         target instanceof HTMLElement &&
         target.closest("[data-radix-popper-content-wrapper]")
-      ) {
-        return;
-      }
+      )
+        return; // inside Radix
 
-      // Otherwise → close
-      setToggle(false);
+      setToggle(false); // otherwise → close
     }
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // ✅ Calculate nights (minimum 1 night if same day)
+  const nights =
+    startDate && endDate
+      ? Math.max(1, differenceInDays(new Date(endDate), new Date(startDate)))
+      : 0;
 
   return (
     <div
@@ -55,13 +55,13 @@ export default function SearchBar() {
       <div className="w-full max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href={"/"} className=" text-[20px] font-semibold">
+          <Link href={"/"} className="text-[20px] font-semibold">
             BookNoww
           </Link>
 
-          {/* Search Input */}
+          {/* Desktop Search Input */}
           {toggle ? (
-            <div className="rounded-full px-2 bg-slate-700 h-12 w-full sm:w-min mx-auto hidden md:flex justify-start sm:justify-between gap-2 items-center overflow-x-auto scrollbar-hide">
+            <div className="rounded-full px-2 bg-slate-700 h-12 w-full sm:w-min mx-auto hidden md:flex justify-start gap-2 items-center overflow-x-auto scrollbar-hide">
               {["Hotel", "Resort", "Apartment"].map((item) => (
                 <button
                   key={item}
@@ -80,32 +80,41 @@ export default function SearchBar() {
           ) : (
             <div
               onClick={() => setToggle(true)}
-              className="w-[425px] whitespace-nowrap justify-between items-center border border-gray-300 py-1.5 px-1 hidden md:flex rounded-full h-[46px] cursor-pointer hover:shadow-md transition"
+              className="w-[425px] justify-between items-center border border-gray-300 py-1.5 px-1 hidden md:flex rounded-full h-[46px] cursor-pointer hover:shadow-md transition"
             >
+              {/* Location */}
               <div className="px-2 font-semibold text-[14px] truncate">
-                {locationName}
+                {locationName || "Where to?"}
               </div>
               <div className="h-full w-[1px] mx-1 bg-gray-200"></div>
+
+              {/* Dates */}
               <div className="flex items-center gap-2 font-semibold text-[14px] px-4 py-3">
-                <p className="text-gray-800">
-                  {format(new Date(startDate || new Date()), "MMM-dd")} –{" "}
-                  {format(new Date(endDate || new Date()), "MMM-dd")}
-                </p>
-                <p className="font-normal text-gray-800">
-                  ·
-                  {differenceInDays(
-                    format(new Date(endDate || new Date()), "MMM-dd"),
-                    format(new Date(startDate || new Date()), "MMM-dd")
-                  )}
-                  nights
-                </p>
+                {startDate && endDate ? (
+                  <>
+                    <p className="text-gray-800">
+                      {format(new Date(startDate), "MMM dd")} –{" "}
+                      {format(new Date(endDate), "MMM dd")}
+                    </p>
+                    <p className="font-normal text-gray-800">
+                      · {nights} nights
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-gray-400">Check-in – Check-out</p>
+                )}
               </div>
+
               <div className="h-full w-[1px] bg-gray-200"></div>
+
+              {/* Guests */}
               <div className="px-2">
                 <p className="text-[14px] font-semibold text-gray-800">
-                  2 guests
+                  {guests} guests
                 </p>
               </div>
+
+              {/* Search Btn */}
               <Button className="rounded-full h-10 w-10 flex items-center justify-center bg-blue-600 hover:bg-blue-700">
                 <Search className="text-white h-5 w-5" />
               </Button>
@@ -118,30 +127,29 @@ export default function SearchBar() {
             <LoginPopover />
           </div>
         </div>
+
         {/* Mobile Search Bar */}
         <div
           onClick={() => setToggle(!toggle)}
           className="w-full mt-4 md:hidden flex items-center justify-between border border-gray-300 rounded-full px-3 py-2 shadow-sm hover:shadow-md transition cursor-pointer"
         >
-          {/* Left Section */}
           <div className="flex items-center gap-2 overflow-hidden">
             <Search className="h-5 w-5 text-gray-500 mt-0.5" />
-
             <div className="flex flex-col">
-              {/* Location */}
               <span className="font-semibold text-sm text-gray-900 truncate">
                 {locationName || "Where to?"}
               </span>
-
-              {/* Dates + Guests */}
               <span className="text-xs text-gray-500 truncate">
-                {format(new Date(startDate || new Date()), "MMM dd")} –{" "}
-                {format(new Date(endDate || new Date()), "MMM dd")} · 2 guests
+                {startDate && endDate
+                  ? `${format(new Date(startDate), "MMM dd")} – ${format(
+                      new Date(endDate),
+                      "MMM dd"
+                    )} · ${guests} guests`
+                  : "Check-in – Check-out · Guests"}
               </span>
             </div>
           </div>
 
-          {/* Right Arrow Button */}
           <Button
             size="icon"
             className="rounded-full h-8 w-8 flex items-center justify-center bg-blue-600 hover:bg-blue-700"
@@ -163,10 +171,11 @@ export default function SearchBar() {
           </Button>
         </div>
 
+        {/* Expanded Search (Mobile + Desktop) */}
         {toggle && (
           <div
             className={cn(
-              "transition-all duration-500 overflow-hidden", // smooth expand/collapse
+              "transition-all duration-500 overflow-hidden",
               toggle
                 ? "opacity-100 translate-y-0 max-h-[800px] mt-4"
                 : "opacity-0 -translate-y-4 max-h-0"
