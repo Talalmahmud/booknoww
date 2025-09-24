@@ -61,12 +61,12 @@ export default function SearchBar() {
 
           {/* Desktop Search Input */}
           {toggle ? (
-            <div className="rounded-full px-2 bg-slate-700 h-12 w-full sm:w-min mx-auto hidden md:flex justify-start gap-2 items-center overflow-x-auto scrollbar-hide">
+            <div className="rounded-md px-2 bg-slate-700 h-12 w-full sm:w-min mx-auto hidden md:flex justify-start gap-2 items-center overflow-x-auto scrollbar-hide">
               {["Hotel", "Resort", "Apartment"].map((item) => (
                 <button
                   key={item}
                   className={cn(
-                    "font-medium px-4 py-2 rounded-full whitespace-nowrap text-sm transition-colors",
+                    "font-medium px-4 py-2 rounded-md whitespace-nowrap text-sm transition-colors",
                     tab === item
                       ? "bg-white text-slate-800 shadow-sm"
                       : "text-white hover:bg-white/20"
