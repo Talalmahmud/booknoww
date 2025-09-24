@@ -39,7 +39,7 @@ const WelcomePack = () => {
   return (
     <div className="w-full max-w-6xl mx-auto px-2 md:px-4 py-8">
       {/* Main Container */}
-      <div className="bg-gradient-to-r from-slate-500 to-purple-700 rounded-2xl p-6 md:p-8 text-white overflow-hidden">
+      <div className="bg-gradient-to-r from-slate-500 to-purple-700 rounded-2xl p-4 text-white overflow-hidden">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Left Content - Welcome Message */}
           <div className="flex flex-col justify-between lg:w-2/5">
