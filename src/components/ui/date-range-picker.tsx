@@ -95,6 +95,8 @@ export function DateRangePicker({
                 numberOfMonths={2}
                 pagedNavigation
                 className="rounded-xl"
+                showOutsideDays={false}
+                disabled={{ before: new Date() }} // 👈 disable all past dates
               />
             </div>
 
@@ -146,6 +148,8 @@ export function DateRangePicker({
                 onSelect={onChange}
                 numberOfMonths={2}
                 pagedNavigation
+                disabled={{ before: new Date() }} // 👈 disable all past dates
+                showOutsideDays={false}
                 className="rounded-xl"
               />
             </div>
