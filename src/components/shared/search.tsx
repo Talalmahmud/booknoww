@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CircleQuestionMark, Star, ThumbsUp } from "lucide-react";
+import { CircleQuestionMark, Star, ThumbsUp, X } from "lucide-react";
 import Image from "next/image";
 import {
   Pagination,
@@ -13,6 +13,16 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { useRouter, useSearchParams } from "next/navigation";
 import { Property } from "@/app/type";
 import Link from "next/link";
@@ -26,6 +36,7 @@ import {
 } from "@/components/ui/drawer";
 import { SearchFilter } from "./search-filter";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import SearchReward from "./search-reward";
 
 export type FilterOption = {
   label: string;
@@ -54,6 +65,7 @@ export type FilterSection =
 // --------------------------
 const SearchPage = () => {
   const searchParams = useSearchParams();
+  const [selected, setSelected] = useState("Most Recommended");
   const [hotels, setHotels] = useState<Property[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchFacilities, setSearchFacilities] = useState<
@@ -140,6 +152,32 @@ const SearchPage = () => {
         },
       ],
     },
+    {
+      title: "Star Rating",
+      key: "rating",
+      options: [
+        {
+          label: "5 Stars",
+          value: "5",
+        },
+        {
+          label: "4 Stars",
+          value: "4",
+        },
+        {
+          label: "3 Stars",
+          value: "3",
+        },
+        {
+          label: "2 Stars",
+          value: "2",
+        },
+        {
+          label: "1 Star",
+          value: "1",
+        },
+      ],
+    },
   ];
 
   // --------------------------
@@ -168,16 +206,16 @@ const SearchPage = () => {
           <DrawerTrigger asChild>
             <Button variant="outline">Filters</Button>
           </DrawerTrigger>
-          <DrawerContent className="h-[100vh] flex flex-col">
-            <DrawerHeader className="flex justify-between items-center border-b">
-              <DrawerTitle>Filters By</DrawerTitle>
+          <DrawerContent className="min-h-[100vh] flex flex-col">
+            <DrawerHeader className="flex flex-row justify-between items-center border-b">
+              <DrawerTitle className=" text-[18px]">Filters By</DrawerTitle>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setMobileOpen(false)}
                 className="text-gray-500 hover:text-gray-700"
               >
-                Close
+                <X />
               </Button>
             </DrawerHeader>
 
@@ -212,7 +250,7 @@ const SearchPage = () => {
       <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto p-6">
         {/* Desktop Sidebar Filter */}
         <aside className="hidden lg:block lg:w-1/4 h-full space-y-8 border border-gray-200 bg-white p-6 rounded-xl shadow-md">
-          <h3 className="text-lg font-semibold mb-4">Filter by:</h3>
+          <p className="text-[16px] font-semibold mb-4">Filter by:</p>
           <SearchFilter
             sections={filterSections}
             onAfterChange={() => setMobileOpen(false)}
@@ -221,6 +259,35 @@ const SearchPage = () => {
 
         {/* Hotels List */}
         <div className="lg:w-3/4 min-h-screen space-y-6">
+          <div className=" flex justify-between">
+            <p className=" font-bold text-lg">Available Properties (23)</p>
+            <div className="flex flex-col gap-[2px]">
+              <p className="font-semibold text-[16px] text-gray-800 pb-1">
+                Sort By
+              </p>
+
+              <Select value={selected} onValueChange={setSelected}>
+                <SelectTrigger className="w-[220px] border-none">
+                  <SelectValue placeholder="Sort By" />
+                </SelectTrigger>
+                <SelectContent className="bg-white border border-gray-200 rounded-md shadow-lg">
+                  <SelectGroup>
+                    <SelectItem value="Most Recommended">
+                      Most Recommended
+                    </SelectItem>
+                    <SelectItem value="Star Rating">
+                      Star Rating (highest first)
+                    </SelectItem>
+                    <SelectItem value="User Rating">
+                      User Rating (highest first)
+                    </SelectItem>
+                    <SelectItem value="Price">Price (lowest first)</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <SearchReward />
           {loading ? (
             <p className="text-center text-gray-600">Loading...</p>
           ) : hotels.length === 0 ? (
@@ -337,7 +404,6 @@ const SearchPage = () => {
               </div>
             ))
           )}
-
           {/* Pagination */}
           <Pagination>
             <PaginationContent>
