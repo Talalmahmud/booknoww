@@ -181,12 +181,12 @@ export default function SearchBar() {
                 : "opacity-0 -translate-y-4 max-h-0"
             )}
           >
-            <div className="rounded-full px-2 bg-slate-700 h-12 w-full md:hidden flex justify-between gap-2 items-center">
+            <div className="rounded-md px-2 bg-slate-700 h-12 w-full md:hidden flex justify-between gap-2 items-center">
               {["Hotel", "Resort", "Apartment"].map((item) => (
                 <button
                   key={item}
                   className={cn(
-                    "font-medium px-4 py-2 rounded-full whitespace-nowrap text-sm transition-colors",
+                    "font-medium px-4 py-2 rounded-md whitespace-nowrap text-sm transition-colors",
                     tab === item
                       ? "bg-white text-slate-800 shadow-sm"
                       : "text-white hover:bg-white/20"

@@ -37,6 +37,7 @@ import {
 import { SearchFilter } from "./search-filter";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import SearchReward from "./search-reward";
+import RecomendFilter from "./recomend-filter";
 
 export type FilterOption = {
   label: string;
@@ -201,7 +202,10 @@ const SearchPage = () => {
   return (
     <div className="bg-gray-50">
       {/* Mobile Filter (Drawer) */}
-      <div className="lg:hidden p-4">
+      <p className=" px-4 font-bold text-lg md:hidden block">
+        Available Properties (23)
+      </p>
+      <div className="lg:hidden flex justify-between pt-2 px-4">
         <Drawer open={mobileOpen} onOpenChange={setMobileOpen}>
           <DrawerTrigger asChild>
             <Button variant="outline">Filters</Button>
@@ -245,6 +249,7 @@ const SearchPage = () => {
             </div>
           </DrawerContent>
         </Drawer>
+        <RecomendFilter selected={selected} setSelected={setSelected} />
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto p-6">
@@ -259,33 +264,9 @@ const SearchPage = () => {
 
         {/* Hotels List */}
         <div className="lg:w-3/4 min-h-screen space-y-6">
-          <div className=" flex justify-between">
+          <div className=" hidden md:flex justify-between">
             <p className=" font-bold text-lg">Available Properties (23)</p>
-            <div className="flex flex-col gap-[2px]">
-              <p className="font-semibold text-[16px] text-gray-800 pb-1">
-                Sort By
-              </p>
-
-              <Select value={selected} onValueChange={setSelected}>
-                <SelectTrigger className="w-[220px] border-none">
-                  <SelectValue placeholder="Sort By" />
-                </SelectTrigger>
-                <SelectContent className="bg-white border border-gray-200 rounded-md shadow-lg">
-                  <SelectGroup>
-                    <SelectItem value="Most Recommended">
-                      Most Recommended
-                    </SelectItem>
-                    <SelectItem value="Star Rating">
-                      Star Rating (highest first)
-                    </SelectItem>
-                    <SelectItem value="User Rating">
-                      User Rating (highest first)
-                    </SelectItem>
-                    <SelectItem value="Price">Price (lowest first)</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
+            <RecomendFilter selected={selected} setSelected={setSelected} />
           </div>
           <SearchReward />
           {loading ? (
