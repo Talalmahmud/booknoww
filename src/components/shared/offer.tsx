@@ -96,7 +96,7 @@ const WeeklyDeals = () => {
   return (
     <div className="w-full max-w-[1160px] mx-auto mt-[100px] px-4 py-8">
       {/* Header */}
-      <div className="flex items-center justify-center flex-wrap gap-4 pb-4">
+      <div className="flex items-center justify-between flex-wrap gap-4 pb-4">
         <div className="flex items-center bg-blue-50 rounded-lg px-3 py-2">
           <Shield className="h-4 w-4 text-blue-600 mr-2" />
           <span className="text-sm font-medium text-blue-700">
