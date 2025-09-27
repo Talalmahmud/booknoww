@@ -385,6 +385,79 @@ const SearchPage = () => {
               </div>
             ))
           )}
+
+          {loading ? (
+            <p className="text-center text-gray-600">Loading...</p>
+          ) : hotels.length === 0 ? (
+            <p className="text-center text-gray-600">No hotels found</p>
+          ) : (
+            <div className=" grid grid-ccol-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {hotels.map((hotel) => (
+                <div
+                  key={hotel.id}
+                  className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden"
+                >
+                  <div className="flex flex-col ">
+                    {/* Hotel Image */}
+                    <div className="w-full relative h-48 md:h-auto overflow-hidden">
+                      <Image
+                        src={hotel.thumbImg || "/placeholder.jpg"}
+                        alt={hotel.title}
+                        height={200}
+                        width={400}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+
+                    {/* Hotel Info */}
+                    <div className=" p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                            {hotel.title}
+                          </h3>
+                        </div>
+                        {hotel.isFeatured && (
+                          <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
+                            Featured
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Facilities */}
+
+                      {/* Rating and Price */}
+                      <div className="flex flex-col justify-between ">
+                        <div className="flex flex-col gap-1 mb-2">
+                          <div className="flex">
+                            {renderStars(Math.round(hotel.ratings || 0))}
+                          </div>
+                          <span className="text-sm text-gray-600">
+                            {hotel.city?.name}, {hotel.country?.name}
+                          </span>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-2xl font-bold text-gray-900">
+                            BDT {hotel.price}
+                          </span>
+
+                          <Link
+                            href={`/availability/${hotel.id}/${searchParams.get(
+                              "start"
+                            )}/${searchParams.get("end")}`}
+                          >
+                            <Button className="mt-2 bg-blue-600 hover:bg-blue-700">
+                              See availability
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           {/* Pagination */}
           <Pagination>
             <PaginationContent>
