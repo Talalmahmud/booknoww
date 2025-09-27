@@ -64,6 +64,78 @@ const Hero = () => {
                 )}
                 onClick={() => setActiveItem(item)}
               >
+                {item === "Hotel" && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                  >
+                    {/* Hotel building */}
+                    <rect x="4" y="3" width="16" height="18" rx="2" />
+
+                    {/* Windows */}
+                    <path d="M8 7h.01M12 7h.01M16 7h.01M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01" />
+
+                    {/* Door */}
+                    <path d="M10 21v-4h4v4" />
+
+                    {/* Sign (small H at top) */}
+                    <path d="M9 3v-2M15 3v-2M9 2h6" />
+                  </svg>
+                )}
+                {item === "Resort" && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                  >
+                    {/* Palm tree trunk */}
+                    <path d="M12 20v-6" />
+
+                    {/* Palm leaves */}
+                    <path d="M12 10c-2-2-6-2-8 0 2 0 4 1 5 3" />
+                    <path d="M12 10c2-2 6-2 8 0-2 0-4 1-5 3" />
+                    <path d="M12 10c-1-3-4-5-7-5 2 1 3 3 3 5" />
+                    <path d="M12 10c1-3 4-5 7-5-2 1-3 3-3 5" />
+
+                    {/* Ground (beach) */}
+                    <path d="M4 20c4-2 12-2 16 0" />
+                  </svg>
+                )}
+                {item === "Apartment" && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                  >
+                    {/* Building outline */}
+                    <rect x="4" y="3" width="16" height="18" rx="2" />
+
+                    {/* Windows */}
+                    <path d="M8 7h.01M12 7h.01M16 7h.01M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01" />
+
+                    {/* Door */}
+                    <path d="M10 21v-4h4v4" />
+                  </svg>
+                )}
                 {item}
               </button>
             ))}
