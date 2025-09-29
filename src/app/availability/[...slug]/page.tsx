@@ -160,7 +160,7 @@ const HotelDetailsPage = async ({
             {/* Room Types */}
             {hotel.roomTypes.length > 0 && (
               <div>
-                <DetailSearch />
+                <DetailSearch startDate={slug[1]} endDate={slug[2]} />
 
                 <h2 className="text-2xl font-semibold mb-4">Available Rooms</h2>
                 <div className="space-y-6">

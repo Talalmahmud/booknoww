@@ -13,17 +13,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Property } from "@/app/type";
 import Link from "next/link";
 import api from "@/lib/axios";
@@ -252,7 +243,7 @@ const SearchPage = () => {
         <RecomendFilter selected={selected} setSelected={setSelected} />
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto p-6">
+      <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto p-4">
         {/* Desktop Sidebar Filter */}
         <aside className="hidden lg:block lg:w-1/4 h-full space-y-8 border border-gray-200 bg-white p-6 rounded-xl shadow-md">
           <p className="text-[16px] font-semibold mb-4">Filter by:</p>
@@ -272,125 +263,8 @@ const SearchPage = () => {
           {loading ? (
             <p className="text-center text-gray-600">Loading...</p>
           ) : hotels.length === 0 ? (
-            <p className="text-center text-gray-600">No hotels found</p>
-          ) : (
-            hotels.map((hotel) => (
-              <div
-                key={hotel.id}
-                className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden"
-              >
-                <div className="flex flex-col md:flex-row">
-                  {/* Hotel Image */}
-                  <div className="md:w-1/3 relative h-48 md:h-auto overflow-hidden">
-                    <Image
-                      src={hotel.thumbImg || "/placeholder.jpg"}
-                      alt={hotel.title}
-                      height={200}
-                      width={400}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                  </div>
-
-                  {/* Hotel Info */}
-                  <div className="md:w-2/3 p-6">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                          {hotel.title}
-                        </h3>
-                        <div className="flex items-center gap-2 mb-2">
-                          <div className="flex">
-                            {renderStars(Math.round(hotel.ratings || 0))}
-                          </div>
-                          <span className="text-sm text-gray-600">
-                            {hotel.city?.name}, {hotel.country?.name}
-                          </span>
-                        </div>
-                      </div>
-                      {hotel.isFeatured && (
-                        <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
-                          Featured
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Facilities */}
-                    <div className="flex flex-wrap gap-4 mb-4">
-                      {hotel.facilities?.slice(0, 3).map((facility) => (
-                        <div
-                          key={facility.facilityIcon?.id}
-                          className="flex items-center gap-[2px] text-sm text-gray-600"
-                        >
-                          <Image
-                            src={facility.facilityIcon.iconUrl}
-                            alt={facility.facilityIcon.title}
-                            height={16}
-                            width={16}
-                          />{" "}
-                          <span>{facility.facilityIcon?.title}</span>
-                        </div>
-                      ))}
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <CircleQuestionMark />
-                        </TooltipTrigger>
-                        <TooltipContent className=" bg-white space-y-2 shadow-2xl">
-                          {hotel.facilities?.slice(3).map((facility) => (
-                            <div
-                              key={facility.facilityIcon?.id}
-                              className="flex items-center gap-2 text-sm text-gray-600"
-                            >
-                              <Image
-                                src={facility.facilityIcon.iconUrl}
-                                alt={facility.facilityIcon.title}
-                                height={16}
-                                width={16}
-                              />{" "}
-                              <span className=" font-semibold">
-                                {facility.facilityIcon?.title}
-                              </span>
-                            </div>
-                          ))}
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-
-                    {/* Rating and Price */}
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <span className="font-semibold text-blue-600">
-                          {hotel.ratings.toFixed(1)} / 5
-                        </span>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-2xl font-bold text-gray-900">
-                          BDT {hotel.price}
-                        </span>
-                        <p className="text-sm text-gray-600">
-                          per night, taxes may apply
-                        </p>
-                        <Link
-                          href={`/availability/${hotel.id}/${searchParams.get(
-                            "start"
-                          )}/${searchParams.get("end")}`}
-                        >
-                          <Button className="mt-2 bg-blue-600 hover:bg-blue-700">
-                            See availability
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
-
-          {loading ? (
-            <p className="text-center text-gray-600">Loading...</p>
-          ) : hotels.length === 0 ? (
-            <p className="text-center text-gray-600">No hotels found</p>
-          ) : (
+            <p className="text-center text-gray-600">No property found</p>
+          ) : hotels[0]?.propertyType?.name === "Apartment" ? (
             <div className=" grid grid-ccol-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {hotels.map((hotel) => (
                 <div
@@ -457,7 +331,117 @@ const SearchPage = () => {
                 </div>
               ))}
             </div>
+          ) : (
+            hotels.map((hotel) => (
+              <div
+                key={hotel.id}
+                className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden"
+              >
+                <div className="flex flex-col md:flex-row">
+                  {/* Hotel Image */}
+                  <div className="md:w-1/3 relative h-48 md:h-auto overflow-hidden">
+                    <Image
+                      src={hotel.thumbImg || "/placeholder.jpg"}
+                      alt={hotel.title}
+                      height={200}
+                      width={400}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
+
+                  {/* Hotel Info */}
+                  <div className=" flex w-full md:flex-row flex-col justify-between">
+                    <div className="md:w-2/3 p-3  bg-white ">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className=" ">
+                          <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                            {hotel.title}
+                          </h3>
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="flex items-center gap-1">
+                              {renderStars(Math.round(hotel.ratings || 0))}
+                              <span className="font-semibold text-blue-600">
+                                {hotel.ratings.toFixed(1)} (
+                                <span className=" text-sm">
+                                  {" "}
+                                  {hotel.reviews?.length} reviews)
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                          <span className="text-sm text-gray-600">
+                            {hotel.city?.name}, {hotel.country?.name}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Facilities */}
+                      <div className="flex flex-wrap gap-4 mb-4">
+                        {hotel.facilities?.slice(0, 3).map((facility) => (
+                          <div
+                            key={facility.facilityIcon?.id}
+                            className="flex items-center gap-[2px] text-sm text-gray-600"
+                          >
+                            <Image
+                              src={facility.facilityIcon.iconUrl}
+                              alt={facility.facilityIcon.title}
+                              height={16}
+                              width={16}
+                            />{" "}
+                            <span>{facility.facilityIcon?.title}</span>
+                          </div>
+                        ))}
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <span className=" text-blue-600 hover:text-blue-800 underline">
+                              more
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent className=" bg-white space-y-2 shadow-2xl">
+                            {hotel.facilities?.slice(3).map((facility) => (
+                              <div
+                                key={facility.facilityIcon?.id}
+                                className="flex items-center gap-2 text-sm text-gray-600"
+                              >
+                                <Image
+                                  src={facility.facilityIcon.iconUrl}
+                                  alt={facility.facilityIcon.title}
+                                  height={16}
+                                  width={16}
+                                />{" "}
+                                <span className=" font-semibold">
+                                  {facility.facilityIcon?.title}
+                                </span>
+                              </div>
+                            ))}
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                    </div>
+                    {/* Rating and Price */}
+                    <div className="flex flex-col justify-end bg-slate-200 p-3">
+                      <div className="text-right ">
+                        <span className="text-2xl font-bold text-gray-900">
+                          BDT {hotel.price}
+                        </span>
+                        <p className="text-sm text-gray-600">per night</p>
+                        <Link
+                          href={`/availability/${hotel.id}/${searchParams.get(
+                            "start"
+                          )}/${searchParams.get("end")}`}
+                        >
+                          <Button className="mt-2 cursor-pointer bg-blue-600 hover:bg-blue-700">
+                            See availability
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
           )}
+
           {/* Pagination */}
           <Pagination>
             <PaginationContent>

@@ -2,10 +2,9 @@
 import Image from "next/image";
 import RoomGallary from "./room-image-gallery";
 import { Facility, RoomAvailability } from "@/app/availability/[...slug]/page";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
-import { storeBooking } from "@/services/cart";
 import { useCart } from "../card-provider";
 
 type Props = {
@@ -27,23 +26,6 @@ type Props = {
   };
 };
 
-type BookingItem = {
-  propertyId: string;
-  roomTypeId: string;
-  roomAvailabilityId: string;
-  mealOptionId: string;
-  checkIn: string;
-  checkOut: string;
-  adult: number;
-  child: number;
-  guest: number;
-  roomQuantity: number;
-  mealPrice: number;
-  totalPrice: number;
-  title: string;
-  thumbImg: string;
-};
-
 const RoomCard = ({
   room,
   propertyId,
@@ -60,37 +42,29 @@ const RoomCard = ({
   const totalRoom =
     room.roomAvailability.length > 0 ? room.roomAvailability[0].rooms : 0;
 
-  const [selectedMeal, setSelectedMeal] = useState<{
-    id: string;
-    price: number;
-  }>(() => {
-    const firstMeal = firstAvailability?.mealOptions?.[0];
-    return {
-      id: firstMeal?.id || "",
-      price: firstMeal?.price || 0,
-    };
-  });
-
   const [roomCount, setRoomCount] = useState(1);
 
   // handle book now
   // handle book now
 
   // ✅ handle book now using context
-  const handleBookNow = () => {
+  // ✅ remove selectedMeal state
+  // const [selectedMeal, setSelectedMeal] = useState<{ id: string; price: number }>(...);
+
+  const handleBookNow = (mealId: string, mealPrice: number) => {
     addBooking({
       propertyId: propertyId || "",
       roomTypeId: room.id,
       roomAvailabilityId: firstAvailability?.id || "",
-      mealOptionId: selectedMeal.id,
+      mealOptionId: mealId,
       checkIn: checkIn || "",
       checkOut: checkOut || "",
       adult: adult || 0,
       child: child || 0,
       guest: guest || 0,
       roomQuantity: roomCount,
-      mealPrice: selectedMeal.price,
-      totalPrice: selectedMeal.price * roomCount,
+      mealPrice,
+      totalPrice: mealPrice * roomCount,
       title: room.title,
       thumbImg: room.thumbImg,
     });
@@ -161,7 +135,7 @@ const RoomCard = ({
               </Button>
             </div>
           )}
-          {firstAvailability.mealOptions.map((meal) => (
+          {firstAvailability?.mealOptions?.map((meal) => (
             <div key={meal.id} className="border-b-[1px] border-gray-300 pb-2">
               <div className="flex justify-between ">
                 <div>
@@ -170,7 +144,6 @@ const RoomCard = ({
                   </p>
                 </div>
                 <div className="flex flex-col ">
-                  {" "}
                   <div className=" flex flex-col ">
                     <span className="text-red-800 text-lg font-bold">
                       BDT {meal.price}
@@ -178,91 +151,16 @@ const RoomCard = ({
                     <span className=" text-slate-800">per night</span>
                   </div>
                   <button
-                    onClick={handleBookNow}
+                    onClick={() => handleBookNow(meal.id, meal.price)} // ✅ pass meal data here
                     className="bg-blue-600 text-white px-2 py-1 text-sm rounded-lg hover:bg-blue-700"
                   >
                     Book Now
                   </button>
                 </div>
               </div>
-              {/* <label className="flex items-center gap-2 text-[13px] font-bold text-gray-700">
-                <input
-                  type="radio"
-                  name={`meal-${room.id}`}
-                  checked={selectedMeal.id === meal.id}
-                  onChange={() =>
-                    setSelectedMeal({ id: meal.id, price: meal.price })
-                  }
-                />
-                {meal.mealType.name} (<span className="text-red-800">BDT</span>{" "}
-                {meal.price})
-              </label> */}
             </div>
           ))}
         </div>
-
-        {/* Meal Options */}
-        {/* {totalRoom > 0 && firstAvailability && (
-          <div>
-            <p className="font-semibold mb-1">Meal Options</p>
-            <div className="space-y-2">
-              {firstAvailability.mealOptions.map((meal) => (
-                <label
-                  key={meal.id}
-                  className="flex items-center gap-2 text-[13px] font-bold text-gray-700"
-                >
-                  <input
-                    type="radio"
-                    name={`meal-${room.id}`}
-                    checked={selectedMeal.id === meal.id}
-                    onChange={() =>
-                      setSelectedMeal({ id: meal.id, price: meal.price })
-                    }
-                  />
-                  {meal.mealType.name} (
-                  <span className="text-red-800">BDT</span> {meal.price})
-                </label>
-              ))}
-            </div>
-          </div>
-        )} */}
-
-        {/* Room Selector */}
-        {/* {totalRoom > 0 && (
-          <div className="flex items-center gap-3">
-            <p className="font-semibold">Select Rooms:</p>
-            <Button
-              onClick={() => setRoomCount((prev) => Math.max(1, prev - 1))}
-              className=" bg-orange-800 rounded-full h-6 w-6 cursor-pointer"
-            >
-              <MinusCircle className=" min-h-4 min-w-4" />
-            </Button>
-            <span className="px-3">{roomCount}</span>
-            <Button
-              onClick={() =>
-                setRoomCount((prev) => Math.min(totalRoom, prev + 1))
-              }
-              className=" bg-orange-800 rounded-full h-6 w-6 cursor-pointer "
-            >
-              <PlusCircle className=" min-h-4 min-w-4" />
-            </Button>
-          </div>
-        )} */}
-
-        {/* Price */}
-        {/* {totalRoom > 0 && (
-          <div className="flex justify-between items-center pt-2 border-t">
-            <p className="text-lg font-bold text-green-600">
-              BDT {selectedMeal.price}
-            </p>
-            <button
-              onClick={handleBookNow}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-            >
-              Book Now
-            </button>
-          </div>
-        )} */}
       </div>
     </div>
   );

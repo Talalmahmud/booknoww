@@ -13,8 +13,8 @@ import { format } from "date-fns";
 const Hero = () => {
   const [activeItem, setActiveItem] = useState("Hotel");
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(new Date().setDate(new Date().getDate() + 1)),
+    from: new Date(new Date().setDate(new Date().getDate() + 1)),
+    to: new Date(new Date().setDate(new Date().getDate() + 2)),
   });
   const [location, setLocation] = useState<{
     type: string;
@@ -164,9 +164,11 @@ const Hero = () => {
 
             {/* Search button */}
             <Link
-              href={`/search?${location?.type}=${location?.name}&child=${
+              href={`/search?${location?.type}=${
+                location?.name
+              }&propertyType=${activeItem}&child=${guests.children}&adult=${
                 guests.adults
-              }&adult=${guests.adults}&room=${guests.rooms}&start=${format(
+              }&room=${guests.rooms}&start=${format(
                 new Date(dateRange?.from || new Date()),
                 "yyyy-MM-dd"
               )}&end=${format(

@@ -9,9 +9,21 @@ import { LocationCombobox } from "../ui/location-combobox";
 import { GuestSelector } from "./guest-selector";
 import Link from "next/link";
 import { format } from "date-fns";
+import { useSearchParams } from "next/navigation";
 
 const MainSearchBar = () => {
-  const [dateRange, setDateRange] = useState<DateRange | undefined>();
+  const searchParams = useSearchParams();
+  const startDate = searchParams.get("start");
+
+  const endDate = searchParams.get("end");
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from:
+      new Date(startDate || "") ||
+      new Date(new Date().setDate(new Date().getDate() + 1)),
+    to:
+      new Date(endDate || "") ||
+      new Date(new Date().setDate(new Date().getDate() + 2)),
+  });
   const [location, setLocation] = useState<{
     type: string;
     name: string;

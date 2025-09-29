@@ -8,11 +8,20 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { Search } from "lucide-react";
 import { format } from "date-fns";
+import { useSearchParams } from "next/navigation";
+type Props = {
+  startDate?: string;
+  endDate?: string;
+};
 
-const DetailSearch = () => {
+const DetailSearch = ({ startDate, endDate }: Props) => {
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(new Date().setDate(new Date().getDate() + 1)),
+    from:
+      new Date(startDate || "") ||
+      new Date(new Date().setDate(new Date().getDate() + 1)),
+    to:
+      new Date(endDate || "") ||
+      new Date(new Date().setDate(new Date().getDate() + 2)),
   });
   const [location, setLocation] = useState<{
     type: string;
