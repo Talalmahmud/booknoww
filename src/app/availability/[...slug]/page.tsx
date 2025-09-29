@@ -3,21 +3,12 @@ import Header from "@/components/shared/header";
 import PropertyGallery from "@/components/shared/property-image-gellary";
 import Image from "next/image";
 import RoomCard from "@/components/shared/room-card";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 import MessagePopup from "@/components/shared/message-popup";
 import CartItems from "@/components/shared/cart-item";
 import DetailSearch from "@/components/shared/detail-search";
 
+export const revalidate = 3600;
 // ----------------- Types -----------------
 type FacilityIcon = {
   id: string;

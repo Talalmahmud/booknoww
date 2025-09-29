@@ -104,20 +104,10 @@ const RoomCard = ({
 
   return (
     <div className="bg-white p-4 rounded-lg shadow flex flex-col md:flex-row gap-4">
-      <RoomGallary images={[room.thumbImg, ...room.roomImages]} />
-
-      <div className="flex-1 space-y-3 min-w-1/2 ">
-        <div>
-          <p className=" font-bold text-[16px] text-red-600">
-            {totalRoom > 0
-              ? `Hurry up ${totalRoom} rooms are available!`
-              : "No rooms are available!"}
-          </p>
-
-          <h3 className="text-lg font-bold">{room.title}</h3>
-        </div>
-
-        {/* Room Facilities */}
+      <div className="space-y-1">
+        {" "}
+        <RoomGallary images={[room.thumbImg, ...room.roomImages]} />
+        <h3 className="text-lg font-bold">{room.title}</h3>
         <div>
           <p className="font-semibold mb-1">Facilities</p>
           <div className="flex flex-wrap gap-3">
@@ -129,17 +119,90 @@ const RoomCard = ({
                 <Image
                   src={f.facilityIcon.iconUrl}
                   alt={f.facilityIcon.title}
-                  height={14}
-                  width={14}
+                  height={16}
+                  width={16}
                 />
-                <span>{f.facilityIcon.title}</span>
+                <span className=" text-[16px] font-semibold">
+                  {f.facilityIcon.title}
+                </span>
               </div>
             ))}
           </div>
         </div>
+      </div>
+      <div className="flex-1 space-y-3 min-w-1/2 ">
+        <div>
+          <p className=" font-bold text-[16px] text-red-600">
+            {totalRoom > 0
+              ? `Hurry up ${totalRoom} rooms are available!`
+              : "No rooms are available!"}
+          </p>
+        </div>
+
+        {/* Room Facilities */}
+        <div className="space-y-4">
+          {totalRoom > 0 && (
+            <div className="flex items-center gap-3">
+              <p className="font-semibold">Select Rooms:</p>
+              <Button
+                onClick={() => setRoomCount((prev) => Math.max(1, prev - 1))}
+                className=" bg-orange-800 rounded-full h-6 w-6 cursor-pointer"
+              >
+                <MinusCircle className=" min-h-4 min-w-4" />
+              </Button>
+              <span className="px-2">{roomCount}</span>
+              <Button
+                onClick={() =>
+                  setRoomCount((prev) => Math.min(totalRoom, prev + 1))
+                }
+                className=" bg-orange-800 rounded-full h-6 w-6 cursor-pointer "
+              >
+                <PlusCircle className=" min-h-4 min-w-4" />
+              </Button>
+            </div>
+          )}
+          {firstAvailability.mealOptions.map((meal) => (
+            <div key={meal.id} className="border-b-[1px] border-gray-300 pb-2">
+              <div className="flex justify-between ">
+                <div>
+                  <p className=" px-2 py-1 bg-green-700 text-white text-sm rounded-md">
+                    {meal.mealType.name}
+                  </p>
+                </div>
+                <div className="flex flex-col ">
+                  {" "}
+                  <div className=" flex flex-col ">
+                    <span className="text-red-800 text-lg font-bold">
+                      BDT {meal.price}
+                    </span>
+                    <span className=" text-slate-800">per night</span>
+                  </div>
+                  <button
+                    onClick={handleBookNow}
+                    className="bg-blue-600 text-white px-2 py-1 text-sm rounded-lg hover:bg-blue-700"
+                  >
+                    Book Now
+                  </button>
+                </div>
+              </div>
+              {/* <label className="flex items-center gap-2 text-[13px] font-bold text-gray-700">
+                <input
+                  type="radio"
+                  name={`meal-${room.id}`}
+                  checked={selectedMeal.id === meal.id}
+                  onChange={() =>
+                    setSelectedMeal({ id: meal.id, price: meal.price })
+                  }
+                />
+                {meal.mealType.name} (<span className="text-red-800">BDT</span>{" "}
+                {meal.price})
+              </label> */}
+            </div>
+          ))}
+        </div>
 
         {/* Meal Options */}
-        {totalRoom > 0 && firstAvailability && (
+        {/* {totalRoom > 0 && firstAvailability && (
           <div>
             <p className="font-semibold mb-1">Meal Options</p>
             <div className="space-y-2">
@@ -162,10 +225,10 @@ const RoomCard = ({
               ))}
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Room Selector */}
-        {totalRoom > 0 && (
+        {/* {totalRoom > 0 && (
           <div className="flex items-center gap-3">
             <p className="font-semibold">Select Rooms:</p>
             <Button
@@ -184,10 +247,10 @@ const RoomCard = ({
               <PlusCircle className=" min-h-4 min-w-4" />
             </Button>
           </div>
-        )}
+        )} */}
 
         {/* Price */}
-        {totalRoom > 0 && (
+        {/* {totalRoom > 0 && (
           <div className="flex justify-between items-center pt-2 border-t">
             <p className="text-lg font-bold text-green-600">
               BDT {selectedMeal.price}
@@ -199,7 +262,7 @@ const RoomCard = ({
               Book Now
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
