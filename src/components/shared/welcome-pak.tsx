@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Property } from "./feature-properties";
 import api from "@/lib/axios";
+import { format } from "date-fns";
 
 const WelcomePack = () => {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -127,7 +128,21 @@ const WelcomePack = () => {
               {properties.map((property) => (
                 <SwiperSlide key={property.id}>
                   <div
-                    onClick={() => router.push(`/availability/${property.id}`)}
+                    onClick={() =>
+                      router.push(
+                        `/availability/${property.id}/${format(
+                          new Date(
+                            new Date().setDate(new Date().getDate() + 1)
+                          ),
+                          "yyyy-MM-dd"
+                        )}/${format(
+                          new Date(
+                            new Date().setDate(new Date().getDate() + 1)
+                          ),
+                          "yyyy-MM-dd"
+                        )}`
+                      )
+                    }
                     className="bg-white cursor-pointer rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 my-1"
                   >
                     {/* Image */}

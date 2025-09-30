@@ -20,6 +20,7 @@ import {
 import { useRouter } from "next/navigation";
 import api from "@/lib/axios";
 import Link, { useLinkStatus } from "next/link";
+import { format } from "date-fns";
 
 // Type Definitions
 type Category = {
@@ -159,7 +160,17 @@ const FeaturedProperties = () => {
             {properties.map((property) => (
               <SwiperSlide key={property.id}>
                 <div
-                  onClick={() => router.push(`/availability/${property.id}`)}
+                  onClick={() =>
+                    router.push(
+                      `/availability/${property.id}/${format(
+                        new Date(new Date().setDate(new Date().getDate() + 1)),
+                        "yyyy-MM-dd"
+                      )}/${format(
+                        new Date(new Date().setDate(new Date().getDate() + 1)),
+                        "yyyy-MM-dd"
+                      )}`
+                    )
+                  }
                   className="bg-white cursor-pointer rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 my-1"
                 >
                   {/* Image */}
