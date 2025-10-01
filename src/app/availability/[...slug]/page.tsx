@@ -163,7 +163,7 @@ const HotelDetailsPage = async ({
               <div>
                 <DetailSearch startDate={slug[1]} endDate={slug[2]} />
 
-                <h2 className="text-2xl font-semibold mb-4">Available Rooms</h2>
+                <h2 className="text-2xl font-semibold py-2">Available Rooms</h2>
                 <div className="space-y-6">
                   {hotel.roomTypes.map((room) => (
                     <RoomCard
@@ -206,14 +206,14 @@ const HotelDetailsPage = async ({
 
             <div className=" bg-white p-4 rounded-md">
               <div className=" bg-white py-2 px-1">
-                <p className=" text-[16px] font-semibold pb-2">
-                  Know Before You Go
+                <p className=" text-[18px] font-semibold pb-2">
+                  Property Policies:
                 </p>
-                <p className=" text-[14px] font-bold">
+                <p className=" text-[12px] font-bold">
                   Check-In:{" "}
                   <span className=" font-normal">{hotel.checkIn}</span>
                 </p>
-                <p className=" text-[14px] font-bold">
+                <p className=" text-[12px] font-bold">
                   Check-Out:{" "}
                   <span className=" font-normal">{hotel.checkOut}</span>
                 </p>
@@ -225,14 +225,14 @@ const HotelDetailsPage = async ({
                 {hotel.cancellationPolicies?.map((item, index) => (
                   <div
                     key={index}
-                    className=" text-[14px] font-semibold flex items-center gap-1"
+                    className="  font-semibold flex items-center gap-1"
                   >
-                    <span>{item?.title} : </span>
-                    <span className=" text-red-700">
+                    <span className="text-[12px]">{item?.title} : </span>
+                    <span className="text-[12px] text-red-700">
                       {" "}
                       Return {item.percentage}%
                     </span>{" "}
-                    <span className=" text-green-800">
+                    <span className=" text-[12px] text-green-800">
                       {" "}
                       before {item.hours} hours
                     </span>
@@ -240,10 +240,10 @@ const HotelDetailsPage = async ({
                 ))}
               </div>
               <div className=" bg-white py-2 px-1">
-                <p className=" text-[16px] font-semibold  pb-2">
+                <p className=" text-[14px] font-semibold  pb-2">
                   Child Policies:
                 </p>
-                <p className=" text-[14px]">{hotel.childPolicies}</p>
+                <p className=" text-[12px]">{hotel.childPolicies}</p>
               </div>
             </div>
 
