@@ -12,13 +12,14 @@ import {
   Linkedin,
 } from "lucide-react";
 import { Separator } from "../ui/separator";
+import Link from "next/link";
 
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
       {/* Main Footer Content */}
       <div className=" w-full max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
             <h3 className="text-xl font-bold">
@@ -75,19 +76,36 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/rewards"
+                  className="hover:text-blue-400 transition-colors"
+                >
+                  Rewards
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   FAQs
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/privacy-policy"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="terms-condition"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   Terms & Conditions
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#" className="hover:text-blue-400 transition-colors">
@@ -117,22 +135,6 @@ const Footer = () => {
           </div>
 
           {/* Newsletter */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Newsletter</h4>
-            <p className="text-sm text-gray-300">
-              Subscribe to our newsletter for the latest updates and offers.
-            </p>
-            <div className="space-y-3">
-              <Input
-                type="email"
-                placeholder="Your email address"
-                className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
-              />
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                Subscribe
-              </Button>
-            </div>
-          </div>
         </div>
 
         <Separator className="my-8 bg-gray-700" />
