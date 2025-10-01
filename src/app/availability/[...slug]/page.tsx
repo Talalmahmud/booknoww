@@ -7,6 +7,7 @@ import RoomCard from "@/components/shared/room-card";
 import MessagePopup from "@/components/shared/message-popup";
 import CartItems from "@/components/shared/cart-item";
 import DetailSearch from "@/components/shared/detail-search";
+import { clsx } from "clsx";
 
 export const revalidate = 3600;
 // ----------------- Types -----------------
@@ -108,7 +109,7 @@ const HotelDetailsPage = async ({
   // console.log(hotel.roomTypes[0].roomAvailability);
   console.log(hotel.cancellationPolicies);
   return (
-    <div className="min-h-screen bg-blue-100">
+    <div className="min-h-screen bg-orange-50">
       <Header />
 
       <div className="max-w-6xl mx-auto px-4 md:px-0 py-8">
@@ -181,8 +182,8 @@ const HotelDetailsPage = async ({
             )}
 
             {/* Facilities */}
-            <div>
-              <h2 className="text-2xl font-semibold mb-3">Facilities</h2>
+            <div className=" bg-white p-4 rounded-md">
+              <h2 className="text-[16px] font-semibold mb-2">Facilities</h2>
               <div className="flex flex-wrap gap-4">
                 {hotel.facilities.map((facility) => (
                   <div
@@ -195,44 +196,55 @@ const HotelDetailsPage = async ({
                       height={20}
                       width={20}
                     />
-                    <span>{facility.facilityIcon.title}</span>
+                    <span className=" text-[14px]">
+                      {facility.facilityIcon.title}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className=" bg-white py-2 px-1">
-              <p className=" text-xl font-bold pb-2">Know Before You Go</p>
-              <p className=" text-[14px] font-bold">
-                Check-In: <span className=" font-normal">{hotel.checkIn}</span>
-              </p>
-              <p className=" text-[14px] font-bold">
-                Check-Out:{" "}
-                <span className=" font-normal">{hotel.checkOut}</span>
-              </p>
-            </div>
-            <div className=" bg-white py-2 px-1">
-              <p className=" text-xl font-bold pb-1">Cancelletion Policies:</p>
-              {hotel.cancellationPolicies?.map((item, index) => (
-                <div
-                  key={index}
-                  className=" font-semibold flex items-center gap-1"
-                >
-                  <span>{item?.title} : </span>
-                  <span className=" text-red-700">
-                    {" "}
-                    Return {item.percentage}%
-                  </span>{" "}
-                  <span className=" text-green-800">
-                    {" "}
-                    before {item.hours} hours
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className=" bg-white py-2 px-1">
-              <p className=" text-xl font-bold pb-2">Child Policies:</p>
-              <p className=" text-[16px]">{hotel.childPolicies}</p>
+            <div className=" bg-white p-4 rounded-md">
+              <div className=" bg-white py-2 px-1">
+                <p className=" text-[16px] font-semibold pb-2">
+                  Know Before You Go
+                </p>
+                <p className=" text-[14px] font-bold">
+                  Check-In:{" "}
+                  <span className=" font-normal">{hotel.checkIn}</span>
+                </p>
+                <p className=" text-[14px] font-bold">
+                  Check-Out:{" "}
+                  <span className=" font-normal">{hotel.checkOut}</span>
+                </p>
+              </div>
+              <div className=" bg-white py-2 px-1">
+                <p className=" text-[16px] font-semibold pb-1">
+                  Cancelletion Policies:
+                </p>
+                {hotel.cancellationPolicies?.map((item, index) => (
+                  <div
+                    key={index}
+                    className=" text-[14px] font-semibold flex items-center gap-1"
+                  >
+                    <span>{item?.title} : </span>
+                    <span className=" text-red-700">
+                      {" "}
+                      Return {item.percentage}%
+                    </span>{" "}
+                    <span className=" text-green-800">
+                      {" "}
+                      before {item.hours} hours
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className=" bg-white py-2 px-1">
+                <p className=" text-[16px] font-semibold  pb-2">
+                  Child Policies:
+                </p>
+                <p className=" text-[14px]">{hotel.childPolicies}</p>
+              </div>
             </div>
 
             {/* Reviews */}
