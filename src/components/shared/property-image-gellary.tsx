@@ -49,7 +49,7 @@ const PropertyGallery = ({ images }: Props) => {
   return (
     <div>
       {/* Mobile Layout */}
-      <div className="grid gap-4 md:hidden">
+      <div className="grid gap-2 md:hidden">
         {/* First image full width */}
         <div
           className="rounded-lg overflow-hidden cursor-pointer h-64"
@@ -65,7 +65,7 @@ const PropertyGallery = ({ images }: Props) => {
         </div>
 
         {/* Next 4 images in 2x2 grid */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-2">
           {displayedThumbnails.slice(1).map((image, index) => (
             <div
               key={index + 1}
@@ -93,7 +93,7 @@ const PropertyGallery = ({ images }: Props) => {
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:grid md:grid-cols-4 md:grid-rows-2 gap-4 h-96">
+      <div className="hidden md:grid md:grid-cols-4 md:grid-rows-2 gap-2 h-96">
         {/* Main image */}
         <div
           className="md:col-span-2 md:row-span-2 rounded-lg overflow-hidden cursor-pointer"
