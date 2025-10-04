@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <div>
       <Header />
-      <div className="flex w-full lg:max-w-[1160px] mx-auto gap-4  px-4 md:px-0">
+      <div className="flex flex-col md:flex-row w-full lg:max-w-[1160px] mx-auto gap-4  px-4 md:px-0">
         <UserSidebar />
         <div>{children}</div>
       </div>

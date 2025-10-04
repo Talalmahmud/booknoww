@@ -4,9 +4,9 @@ import { BookingTable } from "@/components/shared/booking-table";
 
 export default function BookingListPage() {
   return (
-    <div className="container mx-auto p-6">
+    <div className=" p-3">
       <Card className="shadow-md">
-        <CardHeader className="flex justify-between items-center">
+        <CardHeader className="flex md:flex-row flex-col justify-between items-center">
           <CardTitle className="text-2xl font-bold">Booking List</CardTitle>
           <Button>Add Booking</Button>
         </CardHeader>
