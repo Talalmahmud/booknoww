@@ -194,7 +194,7 @@ const SearchPage = () => {
     <div className="bg-gray-50">
       {/* Mobile Filter (Drawer) */}
       <p className=" px-4 font-bold text-lg md:hidden block">
-        Available Properties (23)
+        Available Properties ({hotels.length})
       </p>
       <div className="lg:hidden flex justify-between pt-2 px-4">
         <Drawer open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -256,7 +256,9 @@ const SearchPage = () => {
         {/* Hotels List */}
         <div className="lg:w-3/4 min-h-screen space-y-6">
           <div className=" hidden md:flex justify-between">
-            <p className=" font-bold text-lg">Available Properties (23)</p>
+            <p className=" font-bold text-lg">
+              Available Properties ({hotels.length})
+            </p>
             <RecomendFilter selected={selected} setSelected={setSelected} />
           </div>
           <SearchReward />
@@ -273,7 +275,7 @@ const SearchPage = () => {
                 >
                   <div className="flex flex-col ">
                     {/* Hotel Image */}
-                    <div className="w-full relative h-48 md:h-auto overflow-hidden">
+                    <div className="w-full relative h-48 overflow-hidden">
                       <Image
                         src={hotel.thumbImg || "/placeholder.jpg"}
                         alt={hotel.title}
@@ -339,7 +341,7 @@ const SearchPage = () => {
               >
                 <div className="flex flex-col md:flex-row">
                   {/* Hotel Image */}
-                  <div className="md:w-1/3 relative h-48 md:h-auto overflow-hidden">
+                  <div className="md:w-1/3 relative h-48  overflow-hidden">
                     <Image
                       src={hotel.thumbImg || "/placeholder.jpg"}
                       alt={hotel.title}
