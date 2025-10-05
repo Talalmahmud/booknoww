@@ -312,7 +312,7 @@ const SearchPage = () => {
                             {hotel.city?.name}, {hotel.country?.name}
                           </span>
                         </div>
-                        <div className="text-right">
+                        <div className="text-right flex flex-col">
                           <span className="text-2xl font-bold text-gray-900">
                             BDT {hotel.price}
                           </span>
