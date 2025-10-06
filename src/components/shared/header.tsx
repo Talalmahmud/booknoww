@@ -13,7 +13,7 @@ const Header = () => {
           <div className=" block md:hidden">
             <MobileSidebar />
           </div>
-          <Link href={"/"} className=" text-[20px] font-semibold">
+          <Link href={"/"} className=" text-[24px] font-semibold">
             BookNoww
           </Link>
         </div>

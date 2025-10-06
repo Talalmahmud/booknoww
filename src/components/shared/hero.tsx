@@ -164,20 +164,26 @@ const Hero = () => {
 
             {/* Search button */}
             <Link
-              href={`/search?${location?.type}=${
-                location?.name
-              }&propertyType=${activeItem}&child=${guests.children}&adult=${
-                guests.adults
-              }&room=${guests.rooms}&start=${format(
+              href={`/search?${
+                location &&
+                ["Hotel", "Resort", "Apartment"].includes(location.type)
+                  ? "propertyName"
+                  : location?.type
+              }=${encodeURIComponent(
+                location?.name ?? ""
+              )}&propertyType=${encodeURIComponent(activeItem ?? "")}&child=${
+                guests.children
+              }&adult=${guests.adults}&room=${guests.rooms}&start=${format(
                 new Date(dateRange?.from || new Date()),
                 "yyyy-MM-dd"
               )}&end=${format(
                 new Date(dateRange?.to || new Date()),
                 "yyyy-MM-dd"
               )}`}
-              className="lg:col-span-1 flex"
+              prefetch={false}
+              className="lg:col-span-1 flex cursor-pointer"
             >
-              <Button className="w-full h-14 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold shadow">
+              <Button className="w-full h-14 bg-blue-600 hover:bg-blue-700 rounded-lg text-white cursor-pointer font-semibold shadow">
                 <Search className="mr-2 h-4 w-4" />
                 Search
               </Button>

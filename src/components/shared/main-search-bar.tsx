@@ -10,8 +10,11 @@ import { GuestSelector } from "./guest-selector";
 import Link from "next/link";
 import { format } from "date-fns";
 import { useSearchParams } from "next/navigation";
+type Props = {
+  tab: string;
+};
 
-const MainSearchBar = () => {
+const MainSearchBar = ({ tab }: Props) => {
   const searchParams = useSearchParams();
   const startDate = searchParams.get("start");
 
@@ -71,11 +74,15 @@ const MainSearchBar = () => {
 
       {/* Search button */}
       <Link
-        href={`/search?propertyType=${location?.type}&propertyName=${
-          location?.name
-        }&child=${guests.adults}&adult=${guests.adults}&room=${
-          guests.rooms
-        }&start=${format(
+        href={`/search?${
+          location && ["Hotel", "Resort", "Apartment"].includes(location.type)
+            ? "propertyName"
+            : location?.type
+        }=${encodeURIComponent(
+          location?.name ?? ""
+        )}&propertyType=${encodeURIComponent(tab ?? "")}&child=${
+          guests.children
+        }&adult=${guests.adults}&room=${guests.rooms}&start=${format(
           new Date(dateRange?.from || new Date()),
           "yyyy-MM-dd"
         )}&end=${format(new Date(dateRange?.to || new Date()), "yyyy-MM-dd")}`}

@@ -2,6 +2,9 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+body {
+  scroll-behavior: smooth;
+}
 
 .swiper-pagination-bullet {
   width: 12px;

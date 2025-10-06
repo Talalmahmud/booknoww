@@ -342,7 +342,7 @@ export default function SearchBar() {
               ))}
             </div>
 
-            <MainSearchBar />
+            <MainSearchBar tab={tab} />
           </div>
         )}
       </div>

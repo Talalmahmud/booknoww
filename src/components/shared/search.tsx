@@ -29,6 +29,7 @@ import { SearchFilter } from "./search-filter";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import SearchReward from "./search-reward";
 import RecomendFilter from "./recomend-filter";
+import SearchReward2 from "./search-reward2";
 
 export type FilterOption = {
   label: string;
@@ -196,6 +197,9 @@ const SearchPage = () => {
       <p className=" px-4 font-bold text-lg md:hidden block">
         Available Properties ({hotels.length})
       </p>
+      <div className=" px-2 block lg:hidden">
+        <SearchReward2 />
+      </div>
       <div className="lg:hidden flex justify-between pt-2 px-4">
         <Drawer open={mobileOpen} onOpenChange={setMobileOpen}>
           <DrawerTrigger asChild>
@@ -255,13 +259,17 @@ const SearchPage = () => {
 
         {/* Hotels List */}
         <div className="lg:w-3/4 min-h-screen space-y-6">
-          <div className=" hidden md:flex justify-between">
-            <p className=" font-bold text-lg">
-              Available Properties ({hotels.length})
-            </p>
+          <div className=" hidden lg:flex gap-1.5 justify-between">
+            <div>
+              {" "}
+              <p className=" font-bold text-lg">
+                Available Properties ({hotels.length})
+              </p>
+              <SearchReward2 />
+            </div>
             <RecomendFilter selected={selected} setSelected={setSelected} />
           </div>
-          <SearchReward />
+
           {loading ? (
             <p className="text-center text-gray-600">Loading...</p>
           ) : hotels.length === 0 ? (

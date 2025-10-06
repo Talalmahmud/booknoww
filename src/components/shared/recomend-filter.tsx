@@ -38,7 +38,7 @@ const RecomendFilter = ({ selected, setSelected }: Props) => {
   return (
     <>
       {/* Desktop */}
-      <div className="hidden md:flex flex-col border-[1px] p-2 rounded-md bg-white gap-2">
+      <div className="hidden lg:flex flex-col border-[1px] p-2 rounded-md bg-white gap-2">
         <label className="font-semibold text-gray-800 text-[15px]">
           Sort By
         </label>
@@ -63,7 +63,7 @@ const RecomendFilter = ({ selected, setSelected }: Props) => {
       </div>
 
       {/* Mobile/Tablet */}
-      <div className="flex md:hidden">
+      <div className="flex lg:hidden">
         <Button
           variant="outline"
           className="flex items-center gap-2"
